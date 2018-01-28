@@ -66,6 +66,16 @@ class App
      */
     public function start()
     {
-        self::$di->get('http')->start();
+        if( PHP_RUN_TYPE=='swoole' ){
+            self::$di->get('http')->start();
+        }else{
+            /**
+             * 兼容赋值
+             */
+            $request  = new \Universe\Swoole\Http\Request();
+            $response = new \Universe\Swoole\Http\Response();
+
+            self::$di->get('dispatcher')->handle($request, $response);
+        }
     }
 }

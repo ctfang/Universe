@@ -9,8 +9,6 @@
 namespace Universe\Exceptions\Handlers;
 
 
-use Whoops\Handler\Handler;
-
 class LoggerHandler extends Handler
 {
     /**
@@ -18,6 +16,6 @@ class LoggerHandler extends Handler
      */
     public function handle()
     {
-        // TODO: Implement handle() method.
+        $this->response->end($this->exception->getMessage());
     }
 }

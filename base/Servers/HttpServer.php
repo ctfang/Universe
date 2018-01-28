@@ -24,11 +24,6 @@ class HttpServer extends \swoole_http_server
 
     private function request($request, $response)
     {
-        try{
-            App::getDi()->get('dispatcher')->handle($request, $response);
-        }catch (\Exception $exception){
-            // 命令行打印错误
-            dump($exception);
-        }
+        App::getDi()->get('dispatcher')->handle($request, $response);
     }
 }

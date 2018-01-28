@@ -9,10 +9,27 @@
 namespace Universe\Servers;
 
 
+use Universe\Exceptions\Handlers\Handler;
+
 class ExceptionServer
 {
-    public function __construct()
-    {
+    private $handler = [];
 
+    public function pushHandler(Handler $handler)
+    {
+        $this->handler[] = $handler;
+    }
+
+    public function handler($exception, $request, $response)
+    {
+        foreach ($this->handler as $handler) {
+            if ($handler instanceof Handler) {
+                $handler->set($exception, $request, $response);
+                $bool = $handler->handle();
+                if ($bool === false) {
+                    break;
+                }
+            }
+        }
     }
 }

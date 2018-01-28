@@ -40,26 +40,31 @@ class DispatcherServer
      */
     public function handle(Request $request, Response $response)
     {
-        $method = $request->server['request_method'];
-        $uri    = $request->server['request_uri'];
+        try{
+            $method = $request->server['request_method'];
+            $uri    = $request->server['request_uri'];
 
-        if (false !== $pos = strpos($uri, '?')) {
-            $uri = substr($uri, 0, $pos);
-        }
-        $uri = rawurldecode($uri);
+            if (false !== $pos = strpos($uri, '?')) {
+                $uri = substr($uri, 0, $pos);
+            }
+            $uri = rawurldecode($uri);
 
 
-        $routeInfo = $this->dispatcher->dispatch($method, $uri);
-        switch ($routeInfo[0]) {
-            case Dispatcher::NOT_FOUND:
-                throw new NotFoundException('404 Not Found');
-                break;
-            case Dispatcher::METHOD_NOT_ALLOWED:
-                throw new NotFoundException('405 Method Not Allowed');
-                break;
-            case Dispatcher::FOUND:
-                $this->dispatch($request, $response, $routeInfo);
-                break;
+            $routeInfo = $this->dispatcher->dispatch($method, $uri);
+            switch ($routeInfo[0]) {
+                case Dispatcher::NOT_FOUND:
+                    throw new NotFoundException('404 Not Found');
+                    break;
+                case Dispatcher::METHOD_NOT_ALLOWED:
+                    throw new NotFoundException('405 Method Not Allowed');
+                    break;
+                case Dispatcher::FOUND:
+                    $this->dispatch($request, $response, $routeInfo);
+                    break;
+            }
+        }catch (\Exception $exception){
+            // 命令行打印错误
+            App::getDi()->get('exception')->handler($exception,$request,$response);
         }
     }
 

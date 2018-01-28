@@ -10,10 +10,8 @@
   },
   "require": {
     "vlucas/phpdotenv": "^2.4",
-    "symfony/debug": "^3.3",
     "symfony/var-dumper": "^3.3",
     "symfony/console": "~3.3",
-    "monolog/monolog": "~1.12",
     "filp/whoops": "^2.1.4",
     "nikic/fast-route": "^1.2"
   },

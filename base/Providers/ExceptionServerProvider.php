@@ -9,7 +9,7 @@
 namespace Universe\Providers;
 
 use Universe\Exceptions\Handlers\LoggerHandler;
-use Whoops\Run;
+use Universe\Servers\ExceptionServer;
 
 class ExceptionServerProvider extends AbstractServiceProvider
 {
@@ -18,10 +18,10 @@ class ExceptionServerProvider extends AbstractServiceProvider
     public function register()
     {
         $this->di->set($this->serviceName,function (){
-            $whoops = new Run();
+            $Exception = new ExceptionServer();
             // 日记处理
-            $whoops->pushHandler(new LoggerHandler());
-            return $whoops;
+            $Exception->pushHandler(new LoggerHandler());
+            return $Exception;
         });
     }
 }

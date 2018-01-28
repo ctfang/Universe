@@ -8,6 +8,6 @@
 return [
     'server'=>[
         'host'=>env('SERVER_HOST','*.*.*.*'),
-        'port'=>env('SERVER_PORT','80'),
+        'port'=>env('SERVER_PORT','8080'),
     ],
 ];
