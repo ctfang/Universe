@@ -6,7 +6,8 @@
  * Time: 20:57
  */
 
-use \Universe\Servers\RouteServer as Route;
+use Universe\Support\Route;
+
 
 /**
  * $route->addRoute('GET', '/users', 'get_all_users_handler');
@@ -20,6 +21,6 @@ use \Universe\Servers\RouteServer as Route;
 /**
  * 首页
  */
-Route::get('/{id:\d+}','IndexController@index');
+Route::get('/','IndexController@index');
 
 Route::get('/test','IndexController@test');

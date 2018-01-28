@@ -6,12 +6,12 @@
  * Time: 21:00
  */
 
-namespace Universe\Support;
+namespace Universe\Servers;
 
 
 use Universe\App;
 
-class Config
+class ConfigServer
 {
     private $config;
 

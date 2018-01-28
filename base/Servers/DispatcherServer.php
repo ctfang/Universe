@@ -15,6 +15,7 @@ use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Universe\App;
 use Universe\Exceptions\NotFoundException;
+use Universe\Support\Route;
 
 class DispatcherServer
 {
@@ -26,7 +27,7 @@ class DispatcherServer
          * 载入业务路由
          */
         $this->dispatcher = \FastRoute\simpleDispatcher(function (RouteCollector $route) {
-            RouteServer::setService($route);
+            Route::setService($route);
             include_once App::getPath('/config/route.php');
         });
     }

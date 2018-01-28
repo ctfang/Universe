@@ -10,26 +10,27 @@ namespace Universe;
 
 
 use Dotenv\Dotenv;
-use Universe\Providers\AbstractServiceProvider;
-use Universe\Support\Config;
+use Universe\Support\ConfigServer;
 use Universe\Support\Di;
+use Universe\Swoole\Http\Request;
+use Universe\Swoole\Http\Response;
 
 class App
 {
     private static $path;
-    protected static $di;
+    private static $di;
 
-    public function  __construct($root)
+    public function __construct($root)
     {
         self::$path = $root;
         // 优先加载环境变量
-        if( file_exists(self::getPath('/.env')) ){
+        if (file_exists(self::getPath('/.env'))) {
             (new Dotenv($root))->load();
         }
         // Di类
         self::$di = new Di();
-        self::$di->set('config',function (){
-            return new Config();
+        self::$di->set('config', function () {
+            return new ConfigServer();
         });
     }
 
@@ -39,9 +40,9 @@ class App
      * @param $path
      * @return string
      */
-    public static function getPath($path='')
+    public static function getPath($path = '')
     {
-        return self::$path.$path;
+        return self::$path . $path;
     }
 
     public static function getDi()
@@ -56,7 +57,7 @@ class App
      */
     public function initializeServices($arrConfig)
     {
-        foreach ($arrConfig as $className){
+        foreach ($arrConfig as $className) {
             (new $className(self::$di))->register();
         }
     }
@@ -66,14 +67,14 @@ class App
      */
     public function start()
     {
-        if( PHP_RUN_TYPE=='swoole' ){
+        if (PHP_RUN_TYPE == 'swoole') {
             self::$di->get('http')->start();
-        }else{
+        } else {
             /**
              * 兼容赋值
              */
-            $request  = new \Universe\Swoole\Http\Request();
-            $response = new \Universe\Swoole\Http\Response();
+            $request = new Request();
+            $response = new Response();
 
             self::$di->get('dispatcher')->handle($request, $response);
         }

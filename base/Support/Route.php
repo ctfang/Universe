@@ -6,12 +6,12 @@
  * Time: 15:08
  */
 
-namespace Universe\Servers;
+namespace Universe\Support;
 
 
 use FastRoute\RouteCollector;
 
-class RouteServer
+class Route
 {
     /**
      * @var RouteCollector
