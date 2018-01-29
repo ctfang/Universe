@@ -19,16 +19,12 @@ class CounterMiddleware extends Middleware
      *
      * @var int
      */
-    public  static $num = 0;
+    public static $num = 0;
 
-    /**
-     * @param Response $request
-     * @param Response $response
-     * @param array $params
-     * @return bool
-     */
-    public function handle($request, $response, array &$params)
+    public function handle($request, $next)
     {
-        self::$num++;
+        $response = $next($request);
+        dump('请求后' );
+        return $response;
     }
 }

@@ -21,6 +21,12 @@ use Universe\Support\Route;
 /**
  * 首页
  */
-Route::get('/','IndexController@index');
+Route::get('/', 'IndexController@index');
 
-Route::get('/test','IndexController@test');
+Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {
+    Route::get('', 'IndexController@test');
+
+    Route::get('/one', 'IndexController@test');
+});
+
+Route::get('/tow', 'IndexController@index');

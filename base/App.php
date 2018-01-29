@@ -10,7 +10,7 @@ namespace Universe;
 
 
 use Dotenv\Dotenv;
-use Universe\Support\ConfigServer;
+use Universe\Servers\ConfigServer;
 use Universe\Support\Di;
 use Universe\Swoole\Http\Request;
 use Universe\Swoole\Http\Response;
@@ -29,9 +29,6 @@ class App
         }
         // Di类
         self::$di = new Di();
-        self::$di->set('config', function () {
-            return new ConfigServer();
-        });
     }
 
     /**
@@ -73,7 +70,7 @@ class App
             /**
              * 兼容赋值
              */
-            $request = new Request();
+            $request  = new Request();
             $response = new Response();
 
             self::$di->get('dispatcher')->handle($request, $response);

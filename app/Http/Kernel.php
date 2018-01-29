@@ -9,18 +9,20 @@
 namespace App\Http;
 
 
+use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\CounterMiddleware;
 use Universe\Support\HttpKernel;
 
 class Kernel extends HttpKernel
 {
     /**
-     * 应用于所有路由的中间件
+     * 全局中间件，应用于所有路由的中间件
      *
      * @var array
      */
     protected $middleware = [
         CounterMiddleware::class,
+        AuthMiddleware::class
     ];
 
 
@@ -32,6 +34,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-
+        'login'=>''
     ];
 }

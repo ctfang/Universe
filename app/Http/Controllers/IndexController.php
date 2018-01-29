@@ -13,12 +13,10 @@ class IndexController extends Controller
 {
     /**
      * 测试从路由获取参数id
-     *
-     * @param $id
      */
-    public function index($id)
+    public function index()
     {
-        $this->response->end($id);
+        return "this index";
     }
 
     /**
@@ -27,6 +25,5 @@ class IndexController extends Controller
     public function test()
     {
         $this->response->end( __FILE__.__LINE__ );
-
     }
 }

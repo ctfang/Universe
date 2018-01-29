@@ -11,8 +11,19 @@ namespace Universe\Swoole\Http;
 
 class Response extends \Swoole\Http\Response
 {
+    protected $my;
+
+    public function __construct($response=null)
+    {
+        $this->my = $response;
+    }
+
     public function end($html = '')
     {
-        echo $html;
+        if( PHP_RUN_TYPE==='php-fpm' ){
+            echo $html;
+        }else{
+            $this->my->end();
+        }
     }
 }

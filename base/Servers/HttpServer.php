@@ -10,6 +10,8 @@ namespace Universe\Servers;
 
 
 use Universe\App;
+use Universe\Swoole\Http\Request;
+use Universe\Swoole\Http\Response;
 
 class HttpServer extends \swoole_http_server
 {
@@ -18,6 +20,8 @@ class HttpServer extends \swoole_http_server
         parent::__construct($host, $port, $mode, $sock_type);
 
         $this->on('request',function ($request, $response){
+            $request    = new Request($request);
+            $response   = new Response($response);
             $this->request($request, $response);
         });
     }

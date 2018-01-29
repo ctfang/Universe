@@ -11,12 +11,18 @@ namespace Universe\Swoole\Http;
 
 class Request extends \Swoole\Http\Request
 {
-    public function __construct()
+    public function __construct($request = null)
     {
-        $this->get  = $_GET;
-        $this->post = $_POST;
-        foreach ($_SERVER as $key=>$value){
-            $this->server[strtolower($key)] = $value;
+        if ($request == null) {
+            $this->get  = $_GET;
+            $this->post = $_POST;
+            foreach ($_SERVER as $key => $value) {
+                $this->server[strtolower($key)] = $value;
+            }
+        } else {
+            $this->get    = $request->get;
+            $this->post   = $request->get;
+            $this->server = $request->server;
         }
     }
 }

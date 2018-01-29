@@ -9,13 +9,14 @@
 namespace Universe\Servers;
 
 
+use App\Http\Kernel;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
-use Swoole\Http\Request;
-use Swoole\Http\Response;
 use Universe\App;
 use Universe\Exceptions\NotFoundException;
 use Universe\Support\Route;
+use Universe\Swoole\Http\Request;
+use Universe\Swoole\Http\Response;
 
 class DispatcherServer
 {
@@ -27,8 +28,12 @@ class DispatcherServer
          * 载入业务路由
          */
         $this->dispatcher = \FastRoute\simpleDispatcher(function (RouteCollector $route) {
-            Route::setService($route);
-            include_once App::getPath('/config/route.php');
+            try {
+                Route::setService($route);
+                include_once App::getPath('/config/route.php');
+            } catch (\Exception $exception) {
+                die($exception->getMessage());
+            }
         });
     }
 
@@ -41,7 +46,7 @@ class DispatcherServer
      */
     public function handle(Request $request, Response $response)
     {
-        try{
+        try {
             $method = $request->server['request_method'];
             $uri    = $request->server['request_uri'];
 
@@ -63,9 +68,9 @@ class DispatcherServer
                     $this->dispatch($request, $response, $routeInfo);
                     break;
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             // 命令行打印错误
-            App::getDi()->get('exception')->handler($exception,$request,$response);
+            App::getDi()->get('exception')->handler($exception, $request, $response);
         }
     }
 
@@ -78,10 +83,10 @@ class DispatcherServer
      */
     private function dispatch(Request $request, Response $response, $routeInfo)
     {
-        list($controller, $action) = explode('@', $routeInfo[1]);
-        $requestParam = $routeInfo[2];
-        $controller = "\\App\\Http\\Controllers\\{$controller}";
-
+        $routeOption      = $routeInfo[1];
+        $requestParam     = $routeInfo[2];
+        $controller       = "\\App\\Http\\Controllers\\" . $routeOption['controller'];
+        $action           = $routeOption['action'];
         $ReflectionClass  = new \ReflectionClass($controller);
         $ReflectionMethod = $ReflectionClass->getMethod($action);
 
@@ -89,14 +94,52 @@ class DispatcherServer
         // 路由参数传入
         foreach ($ReflectionMethod->getParameters() as $parameter) {
             $paramName = $parameter->getName();
-            if( isset($requestParam[$paramName]) ){
+            if (isset($requestParam[$paramName])) {
                 $paraData[] = $requestParam[$paramName];
                 unset($requestParam[$paramName]);
-            }else{
+            } else {
                 $paraData[] = null;
             }
         }
+        $midKernel = new Kernel();
+        // 全局中间件
+        $middleware  = $midKernel->getMiddleware();
+        $middleware  = $middleware + $routeOption['middleware'];
+        $destination = $this->getDestination($request, $response, $controller, $action, $paraData);
 
-        call_user_func_array([new $controller($request,$response), $action], $paraData);
+        // 前置中间件执行
+        $pipeline = array_reduce(
+            array_reverse($middleware),
+            $this->getInitialSlice(),
+            $this->prepareDestination($destination)
+        );
+        $pipeline($request);
+    }
+
+
+    protected function getInitialSlice()
+    {
+        return function ($stack, $pipe) {
+            return function ($passable) use ($stack, $pipe) {
+                return (new $pipe())->handle($passable, $stack);
+            };
+        };
+    }
+
+    protected function getDestination($request, $response, $controller, $action, $paraData)
+    {
+        return function () use ($controller, $request, $response, $action, $paraData) {
+            return App::getDi()->get('export')->end(
+                call_user_func_array([new $controller($request, $response), $action], $paraData),
+                $response
+            );
+        };
+    }
+
+    protected function prepareDestination(\Closure $destination)
+    {
+        return function ($passable) use ($destination) {
+            return $destination($passable);
+        };
     }
 }
