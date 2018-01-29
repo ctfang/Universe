@@ -10,12 +10,11 @@ namespace App\Http\Middleware;
 
 use Universe\Support\Middleware;
 use Universe\Swoole\Http\Request;
-use Universe\Swoole\Http\Response;
 
 class CounterMiddleware extends Middleware
 {
     /**
-     * @param Request $request
+     * @param  Request $request
      * @param $next
      * @return Request
      */

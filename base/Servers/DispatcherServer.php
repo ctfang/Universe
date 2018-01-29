@@ -55,7 +55,6 @@ class DispatcherServer
             }
             $uri = rawurldecode($uri);
 
-
             $routeInfo = $this->dispatcher->dispatch($method, $uri);
             switch ($routeInfo[0]) {
                 case Dispatcher::NOT_FOUND:
