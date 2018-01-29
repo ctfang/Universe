@@ -20,11 +20,11 @@ class CounterMiddleware extends Middleware
      */
     public function handle(Request $request, $next)
     {
-        if( $request->getUri()=='/' ){
-            $request->setUri('/test/one');
-            return $request;
-        }else{
-            return $next($request);
-        }
+//        if( $request->getUri()=='/' ){
+//            $request->setUri('/test/one');
+//            return $request;
+//        }
+
+        return $next($request);
     }
 }

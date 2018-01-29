@@ -14,6 +14,21 @@ return [
     'debug' => env('APP_DEBUG', false),
 
 
+    /**
+     * 根目录
+     */
+    'base_path'=>dirname(__DIR__),
+
+    /**
+     * 日记配置
+     * 记录最小log级别
+     */
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
+    /**
+     * 历史log存储日期
+     */
+    'log_max_files' => 30,
+
     'server'=>[
         'http'=>[
             'host'=>env('SERVER_HOST','*.*.*.*'),

@@ -9,8 +9,8 @@
 namespace Universe\Support;
 
 
-use Swoole\Http\Request;
-use Swoole\Http\Response;
+use Universe\Swoole\Http\Request;
+use Universe\Swoole\Http\Response;
 
 abstract class Controller
 {

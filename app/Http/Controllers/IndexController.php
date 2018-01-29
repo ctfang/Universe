@@ -16,7 +16,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return "this index";
+        return $this->request->get('id','int','0');
     }
 
     /**
