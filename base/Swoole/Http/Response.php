@@ -13,17 +13,17 @@ class Response extends \Swoole\Http\Response
 {
     protected $my;
 
-    public function __construct($response=null)
+    public function __construct($response = null)
     {
         $this->my = $response;
     }
 
     public function end($html = '')
     {
-        if( PHP_RUN_TYPE==='php-fpm' ){
+        if (PHP_RUN_TYPE === 'php-fpm') {
             echo $html;
-        }else{
-            $this->my->end();
+        } else {
+            $this->my->end($html);
         }
     }
 }

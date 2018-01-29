@@ -47,8 +47,8 @@ class DispatcherServer
     public function handle(Request $request, Response $response)
     {
         try {
-            $method = $request->server['request_method'];
-            $uri    = $request->server['request_uri'];
+            $method = $request->getMethod();
+            $uri    = $request->getUri();
 
             if (false !== $pos = strpos($uri, '?')) {
                 $uri = substr($uri, 0, $pos);
@@ -107,15 +107,19 @@ class DispatcherServer
         $middleware  = $middleware + $routeOption['middleware'];
         $destination = $this->getDestination($request, $response, $controller, $action, $paraData);
 
-        // 前置中间件执行
+        // 中间件执行
         $pipeline = array_reduce(
             array_reverse($middleware),
             $this->getInitialSlice(),
             $this->prepareDestination($destination)
         );
-        $pipeline($request);
+        $data     = $pipeline($request);
+        if ($data instanceof Request) {
+            $this->handle($request,$response);
+        }elseif($data){
+            App::getDi()->get('export')->end($data, $response);
+        }
     }
-
 
     protected function getInitialSlice()
     {

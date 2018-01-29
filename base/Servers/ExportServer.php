@@ -19,7 +19,7 @@ class ExportServer
             $response->end(json_encode($data,JSON_UNESCAPED_UNICODE));
         }elseif ( is_object($data) ){
             $response->end(json_encode($data,JSON_UNESCAPED_UNICODE));
-        }else{
+        }elseif($data!==null){
             $response->end($data);
         }
     }

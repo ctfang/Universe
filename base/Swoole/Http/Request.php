@@ -25,4 +25,29 @@ class Request extends \Swoole\Http\Request
             $this->server = $request->server;
         }
     }
+
+    /**
+     * 重定向请求，中间件可用
+     *
+     * @param $uri
+     * @param null $method
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function setUri($uri,$method=null)
+    {
+        if( $method ){
+            $this->server['request_method'] = $method;
+        }
+        $this->server['request_uri'] = $uri;
+    }
+
+    public function getUri()
+    {
+        return $this->server['request_uri'];
+    }
+
+    public function getMethod()
+    {
+        return $this->server['request_method'];
+    }
 }

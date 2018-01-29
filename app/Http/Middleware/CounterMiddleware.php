@@ -8,23 +8,24 @@
 
 namespace App\Http\Middleware;
 
-
-use Swoole\Http\Response;
 use Universe\Support\Middleware;
+use Universe\Swoole\Http\Request;
+use Universe\Swoole\Http\Response;
 
 class CounterMiddleware extends Middleware
 {
     /**
-     * 统计服务启动后，访问次数
-     *
-     * @var int
+     * @param Request $request
+     * @param $next
+     * @return Request
      */
-    public static $num = 0;
-
-    public function handle($request, $next)
+    public function handle(Request $request, $next)
     {
-        $response = $next($request);
-        dump('请求后' );
-        return $response;
+        if( $request->getUri()=='/' ){
+            $request->setUri('/test/one');
+            return $request;
+        }else{
+            return $next($request);
+        }
     }
 }

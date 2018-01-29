@@ -10,14 +10,12 @@ namespace Universe\Support;
 
 
 use Universe\Swoole\Http\Request;
-use Universe\Swoole\Http\Response;
 
 abstract class Middleware
 {
     /**
      * @param Request $request
      * @param $next
-     * @return Response
      */
-     abstract public function handle($request,$next);
+     abstract public function handle(Request $request,$next);
 }

@@ -10,14 +10,16 @@ namespace App\Http\Middleware;
 
 
 use Universe\Support\Middleware;
+use Universe\Swoole\Http\Request;
 
 class AuthMiddleware extends Middleware
 {
-    public function handle($request, $next)
+    /**
+     * @param Request $request
+     * @param $next
+     */
+    public function handle(Request $request, $next)
     {
-        dump('请求前');
-
-
-        return $next();
+        return $next($request);
     }
 }
