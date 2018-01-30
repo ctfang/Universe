@@ -7,14 +7,100 @@
 
 ## About Universe
 
-> **Note:** Universe的目标是所有注册进di的服务都由第三方开发，让更多的人参与进来
+> **Note:** Universe的目标是所有注册进di的服务都由第三方开发，让更多的人参与开发
 
 ## 已经实现的功能列表
 
 <details>
-    <summary>安装使用</summary>
+    <summary>运行使用</summary>
+    
+- fpm模式   ：   配置nginx到项目/public目录
+- swoole模式：进入项目目录运行 php server.php；命令行启动时，文件更改不会立即生效，需要重启服务
+    
+</details>
+
+<details>
+    <summary>配置载入</summary>
+    
+所有的配置都在config目录下，默认加载配置文件
+~~~~
+universe/config/app.php
+~~~~
+    
+</details>
+<details>
+    <summary>控制器</summary>
+
+一个基础的控制器定义
+    
+~~~~php
+namespace App\Http\Controllers;
+
+class IndexController extends Controller
+{
+    public function getString()
+    {
+        return '输出字符串;获取请求参数:'.$this->request->get('id','int',0);
+    }
+
+    public function getJson()
+    {
+        return [
+            'time'=>time(),
+            'string'=>'响应json格式，自动加Json Header',
+        ];
+    }
+}
+~~~~
+
+访问上面示范两个函数需要添加路由，路由文件在 /config/route.php
+    
+~~~~php
+Route::get('/string', 'IndexController@getString');
+Route::get('/index/json', 'IndexController@getJson');
+~~~~
+
+路由器访问   http://test.test/index/json  就可以进入  getJson
+
+</details>
+
+<details>
+    <summary>路由</summary>
+    
+所有接口都必须在路由文件/config/route.php注册
+~~~~php
+Route::get('/string', 'IndexController@getString');
+Route::get('/index/json', 'IndexController@getJson');
+
+// 注册一个分组，分组内的路由都会添加 /test 前缀
+// middleware参数是所有请求都会进入login中间件，例如实现/test开头的路由都必须登录后才能访问
+Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {
+    Route::get('/one', 'IndexController@one');
+    Route::get('/two', 'IndexController@two');
+});
+~~~~
+
+</details>
+
+<details>
+    <summary>中间件</summary>
     
 - fpm模式:   配置nginx到项目/public目录
 - swoole模式:进入项目更目录运行 php server.php
     
 </details>
+
+<details>
+    <summary>异常服务</summary>
+    
+- fpm模式:   配置nginx到项目/public目录
+- swoole模式:进入项目更目录运行 php server.php
+    
+</details>
+
+## TODO 准备开发
+
+- [ ] 数据模型
+- [ ] 连接池
+- [ ] 视图
+- [ ] 事件系统
