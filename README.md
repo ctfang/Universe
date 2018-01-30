@@ -64,7 +64,7 @@ Route::get('/index/json', 'IndexController@getJson');
 
 </details>
 
-<details>
+<details open="open">
     <summary>路由</summary>
     
 所有接口都必须在路由文件/config/route.php注册
