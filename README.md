@@ -188,7 +188,7 @@ class Kernel extends ExceptionKernel
 ## 如何加入开发组
 
 - 提交commit，例如开发一个非常漂亮的异常 handler处理
-- 发送邮件 2206582181@qq.com 
+- 给已有的成员发送邮件 
 
 ## 开发组
 
