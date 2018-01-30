@@ -15,6 +15,11 @@ class Request extends \Swoole\Http\Request
 {
     private $filters;
 
+    /**
+     * 初始化，对命令行和fpm模式下兼容运行
+     *
+     * @param null $request
+     */
     public function __construct($request = null)
     {
         foreach (filter_list() as $value){
@@ -33,6 +38,18 @@ class Request extends \Swoole\Http\Request
         }
     }
 
+    /**
+     * 获取get参数
+     *
+     * @param null $name
+     * @param null $filters 过滤类型 php内置函数filter_list
+     * @param null $defaultValue 默认参数
+     * @param bool $notAllowEmpty 不能为空
+     * @param bool $noRecursive 必须传参
+     * @return mixed|null
+     * @throws NoRecursiveException
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public function get($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
     {
         if( !isset($this->get[$name]) ){
@@ -53,6 +70,18 @@ class Request extends \Swoole\Http\Request
         return $value;
     }
 
+    /**
+     * 获取post参数
+     *
+     * @param null $name
+     * @param null $filters 过滤类型 php内置函数filter_list
+     * @param null $defaultValue 默认参数
+     * @param bool $notAllowEmpty 不能为空
+     * @param bool $noRecursive 必须传参
+     * @return mixed|null
+     * @throws NoRecursiveException
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public function post($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
     {
         if( !isset($this->post[$name]) ){
@@ -88,16 +117,36 @@ class Request extends \Swoole\Http\Request
         $this->server['request_uri'] = $uri;
     }
 
+    /**
+     * 获取请求路由
+     *
+     * @return mixed
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public function getUri()
     {
         return $this->server['request_uri'];
     }
 
+    /**
+     * 获取请求类型
+     *
+     * @return mixed
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public function getMethod()
     {
         return $this->server['request_method'];
     }
 
+    /**
+     * 获取过滤函数id
+     *
+     * @param $filters
+     * @return mixed
+     * @throws \Exception
+     * @author 明月有色 <2206582181@qq.com>
+     */
     private function getFilterId($filters)
     {
         if( !isset($this->filters[$filters]) ){

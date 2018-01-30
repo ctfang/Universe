@@ -8,7 +8,7 @@
 
 namespace Universe\Providers;
 
-use Universe\Exceptions\Handlers\LoggerHandler;
+use App\Exceptions\Kernel;
 use Universe\Servers\ExceptionServer;
 
 class ExceptionServerProvider extends AbstractServiceProvider
@@ -20,7 +20,7 @@ class ExceptionServerProvider extends AbstractServiceProvider
         $this->di->set($this->serviceName,function (){
             $Exception = new ExceptionServer();
             // 日记处理
-            $Exception->pushHandler(new LoggerHandler());
+            (new Kernel($Exception))->register();
             return $Exception;
         });
     }

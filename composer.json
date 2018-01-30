@@ -13,7 +13,8 @@
     "symfony/var-dumper": "^3.3",
     "symfony/console": "~3.3",
     "nikic/fast-route": "^1.2",
-    "monolog/monolog": "~1.12"
+    "monolog/monolog": "~1.12",
+    "filp/whoops": "^2.1.4"
   },
   "repositories": {
     "packagist": {

@@ -23,7 +23,7 @@ class LoggerHandler extends Handler
     }
 
     /**
-     * @return int|null A handler may return nothing, or a Handler::HANDLE_* constant
+     * @return int|null A handler may return nothing, or a Kernel::HANDLE_* constant
      */
     public function handle()
     {

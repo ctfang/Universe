@@ -32,13 +32,15 @@ class DispatcherServer
                 Route::setService($route);
                 include_once App::getPath('/config/route.php');
             } catch (\Exception $exception) {
-                die($exception->getMessage());
+                $errorString   = $exception->getMessage()."\n[stacktrace]\n".$exception->getTraceAsString();
+                App::getDi()->get('logger')->error($errorString);
+                die($errorString);
             }
         });
     }
 
     /**
-     * 路由解析
+     * 路由解析、调度入口
      *
      * @param Request $request
      * @param Response $response
@@ -116,7 +118,7 @@ class DispatcherServer
         if ($data instanceof Request) {
             $this->handle($request,$response);
         }elseif($data){
-            App::getDi()->get('export')->end($data, $response);
+            App::getDi()->get('output')->end($data, $response);
         }
     }
 
@@ -132,7 +134,7 @@ class DispatcherServer
     protected function getDestination($request, $response, $controller, $action, $paraData)
     {
         return function () use ($controller, $request, $response, $action, $paraData) {
-            return App::getDi()->get('export')->end(
+            return App::getDi()->get('output')->end(
                 call_user_func_array([new $controller($request, $response), $action], $paraData),
                 $response
             );

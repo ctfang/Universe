@@ -9,16 +9,16 @@
 namespace Universe\Providers;
 
 
-use Universe\Servers\ExportServer;
+use Universe\Servers\OutputServer;
 
 class ExportServerProvider extends AbstractServiceProvider
 {
-    protected $serviceName = 'export';
+    protected $serviceName = 'output';
 
     public function register()
     {
         $this->di->set($this->serviceName,function (){
-            return new ExportServer();
+            return new OutputServer();
         });
     }
 }

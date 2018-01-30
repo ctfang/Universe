@@ -11,15 +11,18 @@ namespace Universe\Servers;
 
 use Universe\Swoole\Http\Response;
 
-class ExportServer
+class OutputServer
 {
     public function end($data,Response $response)
     {
         if(is_array($data)){
+            $response->header('Content-Type','application/json');
             $response->end(json_encode($data,JSON_UNESCAPED_UNICODE));
         }elseif ( is_object($data) ){
+            $response->header('Content-Type','application/json');
             $response->end(json_encode($data,JSON_UNESCAPED_UNICODE));
         }elseif($data!==null){
+            $response->header('Content-Type','text/html; charset=UTF-8');
             $response->end($data);
         }
     }

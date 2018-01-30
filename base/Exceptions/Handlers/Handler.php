@@ -29,7 +29,7 @@ abstract class Handler
      */
     protected $response;
 
-    public function set(\Exception $exception, Request $request, Response $response)
+    public function set($exception, Request $request, Response $response)
     {
         $this->exception = $exception;
         $this->request = $request;
@@ -37,7 +37,9 @@ abstract class Handler
     }
 
     /**
-     * @return bool
+     * 异常处理
+     *
+     * @return bool false 终止
      */
     abstract public function handle();
 }

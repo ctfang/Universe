@@ -18,10 +18,12 @@ use Universe\Support\Route;
  */
 
 
+Route::get('/favicon.ico', 'IndexController@index');
 /**
  * 首页
  */
 Route::get('/', 'IndexController@index');
+
 
 Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {
     Route::get('', 'IndexController@test');

@@ -17,7 +17,7 @@ class ExceptionServer
 
     public function pushHandler(Handler $handler)
     {
-        $this->handler[] = $handler;
+        array_unshift($this->handler,$handler);
     }
 
     public function handler($exception, $request, $response)
@@ -31,5 +31,30 @@ class ExceptionServer
                 }
             }
         }
+    }
+
+    /**
+     * 启动扑抓异常服务
+     *
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function register()
+    {
+        set_error_handler([$this,'handleError'], E_ALL | E_STRICT);
+    }
+
+    /**
+     * try 不能捕捉的异常转换
+     *
+     * @param $level
+     * @param $message
+     * @param null $file
+     * @param null $line
+     * @throws \ErrorException
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function handleError($level, $message, $file = null, $line = null)
+    {
+        throw new \ErrorException($message, $level,$level, $file, $line);
     }
 }

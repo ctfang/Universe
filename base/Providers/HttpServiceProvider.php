@@ -19,8 +19,13 @@ class HttpServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $this->di->set($this->serviceName,function (){
-            $server = App::getDi()->getShared('config')->get('server.http');
-            return new HttpServer($server['host'],$server['port']);
+            $server = App::getDi()->getShared('config')->get('server');
+
+            $http = new HttpServer($server['http']['host'],$server['http']['port']);
+
+            $http->set($server['set']);
+
+            return $http;
         });
     }
 }
