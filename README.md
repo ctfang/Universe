@@ -185,6 +185,11 @@ class Kernel extends ExceptionKernel
 - [ ] 视图
 - [ ] 事件系统
 
+## 如何加入开发组
+
+- 提交commit，例如开发一个非常漂亮的异常 handler处理
+- 发送邮件 2206582181@qq.com 
+
 ## 开发组
 
 - [x] [明月有色](https://blog.ctfang.com) 
