@@ -28,7 +28,8 @@ universe/config/app.php
 ~~~~
     
 </details>
-<details>
+
+<details open="open">
     <summary>控制器</summary>
 
 一个基础的控制器定义
@@ -82,19 +83,94 @@ Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {
 
 </details>
 
-<details>
+<details open="open">
     <summary>中间件</summary>
     
-- fpm模式:   配置nginx到项目/public目录
-- swoole模式:进入项目更目录运行 php server.php
+中间的使用基本和laravel一模一样，中间件在控制器前还是后执行，是有中间件本身决定的，所有中间件都在目录/app/http/middleware下
+
+~~~~php
+namespace App\Http\Middleware;
+
+
+use Universe\Support\Middleware;
+use Universe\Swoole\Http\Request;
+
+class AuthMiddleware extends Middleware
+{
+    /**
+     * @param Request $request
+     * @param $next
+     */
+    public function handle(Request $request, $next)
+    {
+        // 这里的代码在控制器前运行
+        
+        $response = $next($request);
+        
+        // 这里的代码在控制器后运行
+        
+        return $response;
+    }
+}
+~~~~
+完全由 $next($request) 决定中间件的运行前后。
+
+当然中间一般都用来权限校验或者重定向等。
+~~~~php
+class AuthMiddleware extends Middleware
+{
+    /**
+     * @param Request $request
+     * @param $next
+     */
+    public function handle(Request $request, $next)
+    {
+        if( !is_login() ){
+            // 没有登录重定向到登陆页面
+            $request->setUri('/login');
+            // 需要重新向新地址，返回 新地址 对象即可
+            return $request;
+        }
+        
+        if( !$request->get('token') ){
+            /**
+             * 需要验证token的接口，没有参数
+             * 返回数组，获取字符串，就可以停止执行
+             */
+            return [
+                'error'=>'403',
+                'error_msg'=>'没有权限',
+            ];
+        }
+        // 可以进入控制器
+        return $next($request);
+    }
+}
+~~~~
+
     
 </details>
 
 <details>
     <summary>异常服务</summary>
     
-- fpm模式:   配置nginx到项目/public目录
-- swoole模式:进入项目更目录运行 php server.php
+/app/Exceptions/Kernel.php 注册异常需要经过的handler
+~~~~php
+class Kernel extends ExceptionKernel
+{
+    /**
+     * 注册异常处理
+     *
+     * @return mixed
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function register()
+    {
+        $this->server->pushHandler(new LoggerHandler());
+        $this->server->pushHandler(new ShowErrorHandler());
+    }
+}
+~~~~
     
 </details>
 
