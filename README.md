@@ -171,6 +171,10 @@ class Kernel extends ExceptionKernel
     }
 }
 ~~~~
+上面注册了两个handler
+
+- 把所有错误写入日记
+- 把错误显示出来
     
 </details>
 
