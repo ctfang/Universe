@@ -8,26 +8,98 @@
 
 namespace Universe\Servers;
 
-
+use Swoole\Http\Server;
 use Universe\App;
 use Universe\Swoole\Http\Request;
 use Universe\Swoole\Http\Response;
 
-class HttpServer extends \swoole_http_server
+class HttpServer
 {
-    public function __construct($host, $port, $mode = SWOOLE_PROCESS, $sock_type = SWOOLE_SOCK_TCP)
-    {
-        parent::__construct($host, $port, $mode, $sock_type);
+    private $server;
 
-        $this->on('request',function ($request, $response){
-            $request    = new Request($request);
-            $response   = new Response($response);
-            $this->request($request, $response);
-        });
+    public function __construct( Server $httpServer )
+    {
+        $this->server = $httpServer;
     }
 
-    private function request($request, $response)
+    /**
+     * 每个请求执行一次
+     *
+     * @param \Swoole\Http\Request $request
+     * @param \Swoole\Http\Response $response
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function onRequest(\Swoole\Http\Request $request, \Swoole\Http\Response $response)
     {
+        $request = new Request($request);
+        $response = new Response($response);
         App::getDi()->get('dispatcher')->handle($request, $response);
+    }
+
+    /**
+     * 服务器启动执行一次
+     *
+     * @param Server $server
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function onStart(Server $server)
+    {
+
+    }
+
+    /**
+     * 服务器关闭执行一次
+     *
+     * @param Server $server
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function onShutdown(Server $server)
+    {
+    }
+
+    /**
+     * 每个worker启动重启都会执行
+     *
+     * @param Server $server
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function onWorkerStart(Server $server)
+    {
+    }
+
+    /**
+     * 每个worker退出或重启都会执行
+     *
+     * @param Server $server
+     * @param int $workerId
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function onWorkerStop(Server $server,int $workerId)
+    {
+    }
+
+    /**
+     * 浏览器链接
+     *
+     * @param Server $server
+     * @param int $fd
+     * @param int $reactorId
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function onConnect(Server $server,int $fd,int $reactorId)
+    {
+
+    }
+
+    /**
+     * 关闭浏览器执行一次
+     *
+     * @param Server $server
+     * @param int $fd
+     * @param int $reactorId
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function onClose(Server $server,int $fd,int $reactorId)
+    {
     }
 }

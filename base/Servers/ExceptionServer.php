@@ -15,12 +15,12 @@ class ExceptionServer
 {
     private $handler = [];
 
-    public function pushHandler(Handler $handler)
+    public function pushHandler($handler)
     {
         array_unshift($this->handler,$handler);
     }
 
-    public function handler($exception, $request, $response)
+    public function handleException($exception, $request, $response)
     {
         foreach ($this->handler as $handler) {
             if ($handler instanceof Handler) {

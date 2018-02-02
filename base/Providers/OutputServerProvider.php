@@ -11,7 +11,7 @@ namespace Universe\Providers;
 
 use Universe\Servers\OutputServer;
 
-class ExportServerProvider extends AbstractServiceProvider
+class OutputServerProvider extends AbstractServiceProvider
 {
     protected $serviceName = 'output';
 

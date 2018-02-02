@@ -12,6 +12,7 @@ namespace App\Exceptions;
 use App\Exceptions\Handlers\ShowErrorHandler;
 use Universe\Exceptions\Handlers\LoggerHandler;
 use Universe\Support\ExceptionKernel;
+use Whoops\Handler\PrettyPageHandler;
 
 class Kernel extends ExceptionKernel
 {
@@ -24,6 +25,6 @@ class Kernel extends ExceptionKernel
     public function register()
     {
         $this->server->pushHandler(new LoggerHandler());
-        $this->server->pushHandler(new ShowErrorHandler());
+        $this->server->pushHandler(new PrettyPageHandler());
     }
 }

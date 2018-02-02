@@ -9,6 +9,7 @@
 namespace Universe\Support;
 
 
+use App\Http\Kernel;
 use FastRoute\RouteCollector;
 
 class Route
@@ -67,11 +68,16 @@ class Route
     public static function group(array $option, callable $callback)
     {
         $defaultRouteOption = self::$routeOption;
+        $RouteMiddleware = (new Kernel())->getRouteMiddleware();
         // 设置中间件
         if( isset($option['middleware']) ){
             if( is_array($option['middleware']) ){
+                foreach ($option['middleware'] as $key=>$midName){
+                    $option['middleware'][$key] = $RouteMiddleware[$midName];
+                }
                 self::$routeOption['middleware'] = array_merge(self::$routeOption['middleware'],$option['middleware']);
             }else{
+                $option['middleware'] = $RouteMiddleware[$option['middleware']];
                 self::$routeOption['middleware'][] = $option['middleware'];
             }
         }

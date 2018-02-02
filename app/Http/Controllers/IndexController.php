@@ -9,8 +9,14 @@
 namespace App\Http\Controllers;
 
 
+use think\Db;
+use think\db\connector\Mysql;
+use think\db\Query;
+use Universe\App;
+
 class IndexController extends Controller
 {
+    public static $test = 0;
     public function getString()
     {
         return '输出字符串;获取请求参数:'.$this->request->get('id','int',0);
@@ -29,14 +35,18 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $db = App::getDi()->get('db');
 
+        $data = $db::query('SHOW full PROCESSLIST');
+
+        dump($data);
+
+        self::$test++;
+        return '首页'.self::$test;
     }
 
-    /**
-     * 普通get参数
-     */
     public function test()
     {
-        $this->response->end( __FILE__.__LINE__ );
+        dump("OK");
     }
 }

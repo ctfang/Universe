@@ -8,9 +8,7 @@
 
 namespace App\Http;
 
-
-use App\Http\Middleware\AuthMiddleware;
-use App\Http\Middleware\CounterMiddleware;
+use Universe\Middleware\DebugDumpMiddleware;
 use Universe\Support\HttpKernel;
 
 class Kernel extends HttpKernel
@@ -21,8 +19,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        CounterMiddleware::class,
-        AuthMiddleware::class
+        DebugDumpMiddleware::class,
     ];
 
 

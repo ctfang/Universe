@@ -71,7 +71,7 @@ class DispatcherServer
             }
         } catch (\Exception $exception) {
             // 命令行打印错误
-            App::getDi()->get('exception')->handler($exception, $request, $response);
+            App::getDi()->get('exception')->handleException($exception, $request, $response);
         }
     }
 

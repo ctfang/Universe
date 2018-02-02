@@ -10,6 +10,8 @@ namespace Universe\Providers;
 
 use App\Exceptions\Kernel;
 use Universe\Servers\ExceptionServer;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 class ExceptionServerProvider extends AbstractServiceProvider
 {

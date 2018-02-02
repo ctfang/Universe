@@ -43,7 +43,7 @@ class Response extends \Swoole\Http\Response
     public function header($key, $value, $ucwords = null)
     {
         if (PHP_RUN_TYPE === 'php-fpm') {
-            header($key.': '.$value);
+            //header($key.': '.$value);
         } else {
             $this->my->header($key, $value, $ucwords);
         }

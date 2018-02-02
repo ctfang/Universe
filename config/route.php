@@ -18,7 +18,7 @@ use Universe\Support\Route;
  */
 
 
-Route::get('/favicon.ico', 'IndexController@index');
+Route::get('/favicon.ico', 'IndexController@test');
 /**
  * 首页
  */
@@ -27,8 +27,6 @@ Route::get('/', 'IndexController@index');
 
 Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {
     Route::get('', 'IndexController@test');
-
-    Route::get('/one', 'IndexController@test');
+    Route::get('/one', 'IndexController@one');
+    Route::get('/tow', 'IndexController@tow');
 });
-
-Route::get('/tow', 'IndexController@index');

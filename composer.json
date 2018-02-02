@@ -2,7 +2,7 @@
   "autoload":{
     "psr-4": {
       "App\\":"app/",
-      "Universe\\":"Base/"
+      "Universe\\":"base/"
     },
     "files":[
       "base/helpers.php"
@@ -14,7 +14,8 @@
     "symfony/console": "~3.3",
     "nikic/fast-route": "^1.2",
     "monolog/monolog": "~1.12",
-    "filp/whoops": "^2.1.4"
+    "filp/whoops": "^2.1.4",
+    "illuminate/database":"*"
   },
   "repositories": {
     "packagist": {

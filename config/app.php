@@ -35,10 +35,10 @@ return [
             'port'=>env('SERVER_PORT','8080'),
         ],
         'set'=>[
+            'deamonize'=>false,
             'log_file' => dirname(__DIR__)."/storage/swoole.log",
             'pid_file' => dirname(__DIR__) . '/storage/server.pid',
             'log_level' => 5,
-            'reactor_num' => 4, //reactor thread num
             'worker_num' => 4,    //worker process num
         ],
     ],

@@ -6,6 +6,7 @@ ini_set('display_errors', 1);
 
 /**
  * 注册全局服务
+ * 原则上是，注册阶段不要有业务
  */
 $app->initializeServices([
     \Universe\Providers\ConfigServerProvider::class,
@@ -13,12 +14,13 @@ $app->initializeServices([
     \Universe\Providers\HttpServiceProvider::class,
     \Universe\Providers\ExceptionServerProvider::class,
     \Universe\Providers\DispatcherServiceProvider::class,
-
-    \Universe\Providers\ExportServerProvider::class,
+    \Universe\Providers\OutputServerProvider::class,
+    \Universe\Providers\DatabaseServerProvider::class,
 ]);
 
 /**
- * 启动异常捕捉
+ * 注册异常捕捉
+ * 注册之前的报出的异常不能被捕捉
  */
 $app::getDi()->get('exception')->register();
 
