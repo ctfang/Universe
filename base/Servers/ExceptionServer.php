@@ -9,8 +9,6 @@
 namespace Universe\Servers;
 
 
-use Universe\Exceptions\Handlers\Handler;
-
 class ExceptionServer
 {
     private $handler = [];
@@ -23,7 +21,7 @@ class ExceptionServer
     public function handleException($exception, $request, $response)
     {
         foreach ($this->handler as $handler) {
-            if ($handler instanceof Handler) {
+            if ($handler) {
                 $handler->set($exception, $request, $response);
                 $bool = $handler->handle();
                 if ($bool === false) {
