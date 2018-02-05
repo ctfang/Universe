@@ -13,6 +13,7 @@ use App\Http\Kernel;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use Universe\App;
+use Universe\Exceptions\MethodNotAllowedException;
 use Universe\Exceptions\NotFoundException;
 use Universe\Support\Route;
 use Universe\Swoole\Http\Request;
@@ -33,8 +34,7 @@ class DispatcherServer
                 include_once App::getPath('/config/route.php');
             } catch (\Exception $exception) {
                 $errorString   = $exception->getMessage()."\n[stacktrace]\n".$exception->getTraceAsString();
-                App::getDi()->get('logger')->error($errorString);
-                die($errorString);
+                App::get('logger')->error($errorString);
             }
         });
     }
@@ -44,6 +44,7 @@ class DispatcherServer
      *
      * @param Request $request
      * @param Response $response
+     * @return mixed
      * @throws NotFoundException
      */
     public function handle(Request $request, Response $response)
@@ -63,15 +64,16 @@ class DispatcherServer
                     throw new NotFoundException('404 Not Found');
                     break;
                 case Dispatcher::METHOD_NOT_ALLOWED:
-                    throw new NotFoundException('405 Method Not Allowed');
+                    throw new MethodNotAllowedException('405 Method Not Allowed');
                     break;
                 case Dispatcher::FOUND:
-                    $this->dispatch($request, $response, $routeInfo);
+                    return $this->dispatch($request, $response, $routeInfo);
                     break;
             }
         } catch (\Exception $exception) {
-            // 命令行打印错误
-            App::getDi()->get('exception')->handleException($exception, $request, $response);
+            App::get('exception')->handleException($exception, $request, $response);
+        }catch (\Error $exception){
+            App::get('exception')->handleException($exception, $request, $response);
         }
     }
 
@@ -81,6 +83,7 @@ class DispatcherServer
      * @param Request $request
      * @param Response $response
      * @param $routeInfo
+     * @return mixed
      */
     private function dispatch(Request $request, Response $response, $routeInfo)
     {
@@ -116,9 +119,11 @@ class DispatcherServer
         );
         $data     = $pipeline($request);
         if ($data instanceof Request) {
-            $this->handle($request,$response);
+            return $this->handle($request,$response);
+        }elseif ($data instanceof Response){
+            return $data;
         }elseif($data){
-            App::getDi()->get('output')->end($data, $response);
+            App::get('output')->end($data, $response);
         }
     }
 
@@ -134,7 +139,7 @@ class DispatcherServer
     protected function getDestination($request, $response, $controller, $action, $paraData)
     {
         return function () use ($controller, $request, $response, $action, $paraData) {
-            return App::getDi()->get('output')->end(
+            return App::get('output')->end(
                 call_user_func_array([new $controller($request, $response), $action], $paraData),
                 $response
             );

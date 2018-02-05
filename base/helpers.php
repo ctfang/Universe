@@ -6,9 +6,6 @@
  * Time: 上午12:08
  */
 
-use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\HtmlDumper;
-use Symfony\Component\VarDumper\VarDumper;
 use Universe\Tool\Str;
 
 if (!function_exists('env')) {
@@ -59,15 +56,6 @@ function is_debug()
 {
     if( !defined('IS_DEBUG') ){
         define('IS_DEBUG',\Universe\App::getDi()->get('config')->get('debug',false));
-
-        if( IS_DEBUG ){
-            // 如果调试开始，注册打印函数
-            VarDumper::setHandler(function ($var) {
-                $cloner = new VarCloner();
-                $dumper = new HtmlDumper();
-                $dumper->dump($cloner->cloneVar($var));
-            });
-        }
     }
     return IS_DEBUG;
 }

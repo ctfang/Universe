@@ -18,6 +18,7 @@ class ShowErrorHandler extends Handler
      */
     public function handle()
     {
-        $this->response->end($this->exception->getTraceAsString());
+        dump($this->exception);
+        dump($this->exception->getTraceAsString());
     }
 }

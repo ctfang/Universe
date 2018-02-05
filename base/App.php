@@ -27,21 +27,27 @@ class App
         if (file_exists(self::getPath('/.env'))) {
             (new Dotenv($root))->load();
         }
-        // Di类
         self::$di = new Di();
     }
 
     /**
-     * 获取相对项目的路径
+     * 获取相对项目的路径 ，根目录不带 /
      *
-     * @param $path
+     * @param string $path
      * @return string
+     * @author 明月有色 <2206582181@qq.com>
      */
     public static function getPath($path = '')
     {
         return self::$path . $path;
     }
 
+    /**
+     * 获取DI
+     *
+     * @return Di
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public static function getDi()
     {
         return self::$di;
@@ -60,12 +66,35 @@ class App
     }
 
     /**
+     * 获取服务
+     *
+     * @param $serverName
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public static function get($serverName)
+    {
+        return self::$di->get($serverName);
+    }
+
+    /**
+     * @param $serverName
+     * @return mixed
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public static function getShared($serverName)
+    {
+        return self::$di->getShared($serverName);
+    }
+
+    /**
      * 启动服务
+     *
+     * @author 明月有色 <2206582181@qq.com>
      */
     public function start()
     {
         if (PHP_RUN_TYPE == 'swoole') {
-            self::$di->get('http')->start();
+            self::$di->getShared('server')->start();
         } else {
             /**
              * 兼容赋值

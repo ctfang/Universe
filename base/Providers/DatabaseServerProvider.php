@@ -19,8 +19,9 @@ class DatabaseServerProvider extends AbstractServiceProvider
     {
         $this->di->set($this->serviceName,function () {
             $capsule = new Capsule();
-            $capsule->addConnection( App::getDi()->get('config')->get('database') );
+            $capsule->addConnection( App::get('config')->get('database') );
             $capsule->setAsGlobal();
+            $capsule->bootEloquent();
             return $capsule;
         });
     }

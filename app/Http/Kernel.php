@@ -8,6 +8,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\DatabaseMiddleware;
 use Universe\Middleware\DebugDumpMiddleware;
 use Universe\Support\HttpKernel;
 
@@ -19,7 +20,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        DebugDumpMiddleware::class,
+        DebugDumpMiddleware::class,// 调试的辅助，dump函数输出重定向
+        DatabaseMiddleware::class,// 数据库链接管理
     ];
 
 

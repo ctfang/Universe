@@ -40,6 +40,7 @@ return [
             'pid_file' => dirname(__DIR__) . '/storage/server.pid',
             'log_level' => 5,
             'worker_num' => 4,    //worker process num
+            'task_worker_num'=>2
         ],
     ],
 ];

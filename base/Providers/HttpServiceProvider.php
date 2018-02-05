@@ -9,13 +9,13 @@
 namespace Universe\Providers;
 
 
+use App\Events\HttpEvent;
 use Swoole\Http\Server;
 use Universe\App;
-use Universe\Servers\HttpServer;
 
 class HttpServiceProvider extends AbstractServiceProvider
 {
-    protected $serviceName = 'http';
+    protected $serviceName = 'server';
 
     protected $onList = [
         'onRequest'=>'Request',
@@ -25,15 +25,17 @@ class HttpServiceProvider extends AbstractServiceProvider
         'onWorkerStop'=>'WorkerStop',
         'onConnect'=>'Connect',
         'onClose'=>'Close',
+        'onTask'=>'Task',
+        'onFinish'=>'Finish',
     ];
 
     public function register()
     {
         $this->di->set($this->serviceName,function (){
-            $serverConfig = App::getDi()->getShared('config')->get('server');
+            $serverConfig = App::get('config')->get('server');
             $httpServer = new Server($serverConfig['http']['host'],$serverConfig['http']['port']);
             $httpServer->set($serverConfig['set']);
-            $http = new HttpServer($httpServer);
+            $http = new HttpEvent();
             foreach ($this->onList as $function=>$event){
                 $httpServer->on($event,[$http,$function]);
             }

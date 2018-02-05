@@ -14,11 +14,11 @@ class Response extends \Swoole\Http\Response
     /**
      * @var \Swoole\Http\Response
      */
-    protected $my;
+    protected $system;
 
     public function __construct($response = null)
     {
-        $this->my = $response;
+        $this->system = $response;
     }
 
     /**
@@ -27,10 +27,19 @@ class Response extends \Swoole\Http\Response
      */
     public function end($html = '')
     {
+        if( is_debug() && ob_get_status() ){
+            // 捕捉页面的输出
+            $contents = ob_get_contents();
+            if( $contents ){
+                $html .= $contents;
+            }
+            ob_end_clean();
+        }
+
         if (PHP_RUN_TYPE === 'php-fpm') {
             echo $html;
         } else {
-            $this->my->end($html);
+            $this->system->end($html);
         }
     }
 
@@ -45,7 +54,7 @@ class Response extends \Swoole\Http\Response
         if (PHP_RUN_TYPE === 'php-fpm') {
             //header($key.': '.$value);
         } else {
-            $this->my->header($key, $value, $ucwords);
+            $this->system->header($key, $value, $ucwords);
         }
     }
 
@@ -61,6 +70,6 @@ class Response extends \Swoole\Http\Response
      */
     public function cookie($name, $value = NULL, $expires = NULL, $path = NULL, $domain = NULL, $secure = NULL, $httponly = NULL)
     {
-        $this->my->cookie($name, $value, $expires, $path, $domain, $secure, $httponly);
+        $this->system->cookie($name, $value, $expires, $path, $domain, $secure, $httponly);
     }
 }

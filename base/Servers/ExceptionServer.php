@@ -41,6 +41,7 @@ class ExceptionServer
     public function register()
     {
         set_error_handler([$this,'handleError'], E_ALL | E_STRICT);
+        set_exception_handler([$this,'handleException']);
     }
 
     /**

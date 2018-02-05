@@ -23,6 +23,7 @@ Route::get('/favicon.ico', 'IndexController@test');
  * 首页
  */
 Route::get('/', 'IndexController@index');
+Route::get('/error', 'IndexController@error');
 
 
 Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {

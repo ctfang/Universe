@@ -18,10 +18,4 @@ $app->initializeServices([
     \Universe\Providers\DatabaseServerProvider::class,
 ]);
 
-/**
- * 注册异常捕捉
- * 注册之前的报出的异常不能被捕捉
- */
-$app::getDi()->get('exception')->register();
-
 return $app;

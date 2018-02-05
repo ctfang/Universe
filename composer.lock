@@ -1035,12 +1035,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eaglewu/swoole-ide-helper.git",
-                "reference": "009323c508d6ea41b9c3f171428f110efced1fe2"
+                "reference": "2f9177b4694b90b64a244e09daadf89e5bf88ad0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/eaglewu/swoole-ide-helper/009323c508d6ea41b9c3f171428f110efced1fe2.zip",
-                "reference": "009323c508d6ea41b9c3f171428f110efced1fe2",
+                "url": "https://files.phpcomposer.com/files/eaglewu/swoole-ide-helper/2f9177b4694b90b64a244e09daadf89e5bf88ad0.zip",
+                "reference": "2f9177b4694b90b64a244e09daadf89e5bf88ad0",
                 "shasum": ""
             },
             "type": "library",
@@ -1057,7 +1057,7 @@
                 }
             ],
             "description": "Swoole 在IDE下自动识别类、函数、宏，自动补全函数名",
-            "time": "2017-12-12T09:05:39+00:00"
+            "time": "2018-02-05T05:06:02+00:00"
         }
     ],
     "aliases": [],

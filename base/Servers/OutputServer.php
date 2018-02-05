@@ -15,14 +15,6 @@ class OutputServer
 {
     public function end($data,Response $response)
     {
-        if( is_debug() ){
-            // 捕捉页面的输出
-            $contents = ob_get_contents();
-            if( $contents ){
-                $data .= $contents;
-            }
-            ob_end_clean();
-        }
         if(is_array($data)){
             $response->header('Content-Type','application/json');
             $response->end(json_encode($data,JSON_UNESCAPED_UNICODE));
