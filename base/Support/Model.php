@@ -15,7 +15,6 @@ class Model extends \Illuminate\Database\Eloquent\Model
 {
     public function __construct(array $attributes = [])
     {
-        App::getShared('db');
         parent::__construct($attributes);
     }
 }

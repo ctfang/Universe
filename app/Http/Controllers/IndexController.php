@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\User;
 use Universe\Support\DB;
 
 class IndexController extends Controller
@@ -33,6 +34,6 @@ class IndexController extends Controller
      */
     public function index()
     {
-        dump(DB::table('tet'));
+        dump(DB::table('test')->find(1));
     }
 }

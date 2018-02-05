@@ -21,6 +21,10 @@ class DatabaseMiddleware extends Middleware
      */
     public function handle(Request $request, $next)
     {
+        // 载入数据库配置和实例化
+
+        App::getShared('db');
+
         $response = $next($request);
 
         // 如果数据库链接不足，可以取消注释，在请求后关闭链接
