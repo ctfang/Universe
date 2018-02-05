@@ -166,22 +166,39 @@ class Kernel extends ExceptionKernel
      */
     public function register()
     {
+        if( is_debug() ){
+            // 如果调试，把错误展示出来
+            $this->server->pushHandler(new PrettyPageHandler());
+        }
+        // 所有错误日记记录
         $this->server->pushHandler(new LoggerHandler());
-        $this->server->pushHandler(new ShowErrorHandler());
+        // 404 优先处理
+        $this->server->pushHandler(new NotFoundHandler());
     }
 }
 ~~~~
-上面注册了两个handler
+上面注册了3个handler
 
 - 把所有错误写入日记
 - 把错误显示出来
+- 404展示一个简单页面
+    
+</details>
+
+<details>
+    <summary>数据模型</summary>
+    
+~~~~php
+dump(DB::table('test')->find(1));
+User::find(1);l
+~~~~
+使用上完全跟laravel一样
     
 </details>
 
 ## TODO 准备开发
 
-- [ ] 数据模型
-- [ ] 连接池
+- [x] 连接池
 - [ ] 视图
 - [ ] 事件系统
 
