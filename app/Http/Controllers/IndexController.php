@@ -34,6 +34,6 @@ class IndexController extends Controller
      */
     public function index()
     {
-        dump(DB::table('test')->find(1));
+        throw new \Exception('测试、调试错误');
     }
 }
