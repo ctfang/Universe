@@ -157,7 +157,6 @@ class PrettyPageHandler extends WhoopsHandler
     public function handle()
     {
         $whoops = new Run();
-        // 1分钟内只允许发送一个邮件
         $this->setRun($whoops);
         $this->setInspector( new Inspector($this->exception));
         $this->setException($this->exception);
