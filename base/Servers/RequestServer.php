@@ -20,15 +20,15 @@ class RequestServer extends Request
     /**
      * 初始化，对命令行和fpm模式下兼容运行
      *
-     * @param null $request
+     * @param Request $request
      */
-    public function set($request = null)
+    public function set(Request $request)
     {
         $this->system = $request;
         foreach (filter_list() as $value){
             $this->filters[$value] = filter_id($value);
         }
-        if ($request == null) {
+        if (PHP_RUN_TYPE === 'php-fpm') {
             $this->get  = $_GET;
             $this->post = $_POST;
             foreach ($_SERVER as $key => $value) {

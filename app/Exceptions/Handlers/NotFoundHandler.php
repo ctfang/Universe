@@ -25,9 +25,7 @@ class NotFoundHandler extends Handler
     {
         if( $this->getException() instanceof NotFoundException){
             $response = App::getShared('response');
-
-            $response->header('Status Code','404');
-            $response->header('Content-Type','text/html; charset=UTF-8');
+            $response->status('404');
             $response->end('路由不存在，请设置路由');
 
             // 404 不需要特别处理，下面handler不执行

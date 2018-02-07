@@ -36,6 +36,9 @@ class HttpEvent
         $disResponse = App::get('dispatcher')->handle($request, $response);
 
         if( ob_get_status() && $contents = ob_get_clean() ){
+            while (ob_get_level() > 0) {
+                $contents .= ob_get_clean();
+            }
             $response->end($contents);
         }
         if( $disResponse instanceof ResponseServer){

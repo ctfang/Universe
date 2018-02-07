@@ -18,7 +18,7 @@ class ResponseServer extends Response
      */
     protected $server;
 
-    public function set($response = null)
+    public function set(Response $response)
     {
         $this->server = $response;
     }
@@ -29,22 +29,14 @@ class ResponseServer extends Response
      */
     public function end($html = '')
     {
-        if(is_array($html)){
-            $this->header('Content-Type','application/json');
-            $html = json_encode($html,JSON_UNESCAPED_UNICODE);
-        }elseif ( is_object($html) ){
-            $this->header('Content-Type','application/json');
-            $html = json_encode($html,JSON_UNESCAPED_UNICODE);
-        }elseif($html!==null){
-            $this->header('Content-Type','text/html; charset=UTF-8');
-        }
-
-        if( is_debug() && ob_get_status() ){
-            $contents = ob_get_contents();
-            if( $contents ){
-                $html .= $contents;
-            }
-            ob_end_clean();
+        if (is_array($html)) {
+            $this->header('Content-Type', 'application/json; charset=UTF-8');
+            $html = json_encode($html, JSON_UNESCAPED_UNICODE);
+        } elseif (is_object($html)) {
+            $this->header('Content-Type', 'application/json; charset=UTF-8');
+            $html = json_encode($html, JSON_UNESCAPED_UNICODE);
+        } elseif ($html !== null) {
+            $this->header('Content-Type', 'text/html; charset=UTF-8');
         }
 
         if (PHP_RUN_TYPE === 'php-fpm') {
@@ -63,7 +55,7 @@ class ResponseServer extends Response
     public function header($key, $value, $ucwords = null)
     {
         if (PHP_RUN_TYPE === 'php-fpm') {
-            //header($key.': '.$value);
+            @header($key . ': ' . $value);
         } else {
             $this->server->header($key, $value, $ucwords);
         }
@@ -82,5 +74,21 @@ class ResponseServer extends Response
     public function cookie($name, $value = NULL, $expires = NULL, $path = NULL, $domain = NULL, $secure = NULL, $httponly = NULL)
     {
         $this->server->cookie($name, $value, $expires, $path, $domain, $secure, $httponly);
+    }
+
+
+    /**
+     * 设置HttpCode，如404, 501, 200
+     *
+     * @param $code
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function status($code)
+    {
+        if (PHP_RUN_TYPE === 'php-fpm') {
+            @http_response_code($code);
+        } else {
+            $this->server->status($code);
+        }
     }
 }

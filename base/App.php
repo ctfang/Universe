@@ -10,10 +10,11 @@ namespace Universe;
 
 
 use Dotenv\Dotenv;
-use Universe\Servers\ConfigServer;
+use Swoole\Http\Request;
+use Swoole\Http\Response;
+use Universe\Servers\ResponseServer;
 use Universe\Support\Di;
 use Universe\Servers\RequestServer;
-use Universe\Swoole\Http\ResponseServer;
 
 class App
 {
@@ -96,12 +97,11 @@ class App
         if (PHP_RUN_TYPE == 'swoole') {
             self::$di->getShared('server')->start();
         } else {
-            /**
-             * 兼容赋值
-             */
-            $request  = new Request();
-            $response = new ResponseServer();
-
+            // fpm and 调试模式
+            $request     = App::getShared('request');
+            $response    = App::getShared('response');
+            $request->set(new Request());
+            $response->set(new Response());
             self::$di->get('dispatcher')->handle($request, $response);
         }
     }
