@@ -116,7 +116,7 @@ class DispatcherServer
             $this->prepareDestination($destination)
         );
         $data     = $pipeline($request);
-        if ($data instanceof Request) {
+        if ($data instanceof RequestServer) {
             return $this->handle($request,$response);
         }elseif ($data instanceof ResponseServer){
             return $data;
