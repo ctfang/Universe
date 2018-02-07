@@ -17,13 +17,15 @@ use Universe\Support\Route;
  * $route->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
  */
 
+// 浏览器图标请求
+Route::get('/favicon.ico', 'IndexController@favicon');
 
-Route::get('/favicon.ico', 'IndexController@test');
 /**
  * 首页
  */
 Route::get('/', 'IndexController@index');
 Route::get('/error', 'IndexController@error');
+Route::get('/index/json', 'IndexController@getJson');
 
 
 Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {

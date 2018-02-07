@@ -9,8 +9,7 @@
 namespace Universe\Providers;
 
 use App\Exceptions\Kernel;
-use Universe\Servers\ExceptionServer;
-use Whoops\Handler\PrettyPageHandler;
+use Universe\Util\SystemFacade;
 use Whoops\Run;
 
 class ExceptionServerProvider extends AbstractServiceProvider
@@ -20,10 +19,11 @@ class ExceptionServerProvider extends AbstractServiceProvider
     public function register()
     {
         $this->di->set($this->serviceName,function (){
-            $Exception = new ExceptionServer();
-            // 日记处理
-            (new Kernel($Exception))->register();
-            return $Exception;
+            $run = new Run( new SystemFacade() );
+
+            (new Kernel($run))->register();
+
+            return $run;
         });
     }
 }

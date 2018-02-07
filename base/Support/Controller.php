@@ -8,23 +8,22 @@
 
 namespace Universe\Support;
 
-
-use Universe\Swoole\Http\Request;
-use Universe\Swoole\Http\Response;
+use Universe\Servers\RequestServer;
+use Universe\Servers\ResponseServer;
 
 abstract class Controller
 {
     /**
-     * @var Request
+     * @var RequestServer
      */
     protected $request;
 
     /**
-     * @var Response
+     * @var ResponseServer
      */
     protected $response;
 
-    public function __construct(Request $request, Response $response)
+    public function __construct(RequestServer $request, ResponseServer $response)
     {
         $this->request  = $request;
         $this->response = $response;

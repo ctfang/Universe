@@ -16,8 +16,6 @@ use Universe\App;
 use Universe\Exceptions\MethodNotAllowedException;
 use Universe\Exceptions\NotFoundException;
 use Universe\Support\Route;
-use Universe\Swoole\Http\Request;
-use Universe\Swoole\Http\Response;
 
 class DispatcherServer
 {
@@ -42,12 +40,12 @@ class DispatcherServer
     /**
      * 路由解析、调度入口
      *
-     * @param Request $request
-     * @param Response $response
+     * @param RequestServer $request
+     * @param ResponseServer $response
      * @return mixed
      * @throws NotFoundException
      */
-    public function handle(Request $request, Response $response)
+    public function handle(RequestServer $request, ResponseServer $response)
     {
         try {
             $method = $request->getMethod();
@@ -71,21 +69,21 @@ class DispatcherServer
                     break;
             }
         } catch (\Exception $exception) {
-            App::get('exception')->handleException($exception, $request, $response);
+            App::get('exception')->handleException($exception);
         }catch (\Error $exception){
-            App::get('exception')->handleException($exception, $request, $response);
+            App::get('exception')->handleException($exception);
         }
     }
 
     /**
      * 控制器调度
      *
-     * @param Request $request
-     * @param Response $response
+     * @param RequestServer $request
+     * @param ResponseServer $response
      * @param $routeInfo
      * @return mixed
      */
-    private function dispatch(Request $request, Response $response, $routeInfo)
+    private function dispatch(RequestServer $request, ResponseServer $response, $routeInfo)
     {
         $routeOption      = $routeInfo[1];
         $requestParam     = $routeInfo[2];
@@ -120,7 +118,7 @@ class DispatcherServer
         $data     = $pipeline($request);
         if ($data instanceof Request) {
             return $this->handle($request,$response);
-        }elseif ($data instanceof Response){
+        }elseif ($data instanceof ResponseServer){
             return $data;
         }elseif($data){
             App::get('output')->end($data, $response);

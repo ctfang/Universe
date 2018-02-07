@@ -14,7 +14,15 @@ use Universe\Support\DB;
 
 class IndexController extends Controller
 {
-    public static $test = 0;
+    /**
+     * 浏览器图标请求
+     *
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function favicon()
+    {
+        $this->response->end("OK");
+    }
 
     public function getString()
     {

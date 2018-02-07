@@ -10,6 +10,7 @@ namespace Universe\Exceptions\Handlers;
 
 use Monolog\Logger;
 use Universe\App;
+use Whoops\Handler\Handler;
 
 class LoggerHandler extends Handler
 {
@@ -27,10 +28,11 @@ class LoggerHandler extends Handler
      */
     public function handle()
     {
-        $exception     = $this->exception;
-        $errorCode     = $exception->getCode();
-        $logger        = $this->getLogger();
-        $errorString   = $exception->getMessage()." : uri={$this->request->getUri()}\n[stacktrace]\n".$exception->getTraceAsString();
+        $exception   = $this->getException();
+        $errorCode   = $exception->getCode();
+        $logger      = $this->getLogger();
+        $request     = App::getShared('request');
+        $errorString = $exception->getMessage() . " : uri={$request->getUri()}\n[stacktrace]\n" . $exception->getTraceAsString();
         switch ($errorCode) {
             case E_WARNING:
                 $logger->warning($errorString);

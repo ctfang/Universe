@@ -11,15 +11,15 @@ namespace App\Http\Middleware;
 
 use Universe\App;
 use Universe\Support\Middleware;
-use Universe\Swoole\Http\Request;
+use Universe\Servers\RequestServer;
 
 class DatabaseMiddleware extends Middleware
 {
     /**
-     * @param Request $request
+     * @param RequestServer $request
      * @param $next
      */
-    public function handle(Request $request, $next)
+    public function handle(RequestServer $request, $next)
     {
         // 载入数据库配置和实例化
 

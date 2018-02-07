@@ -9,13 +9,13 @@
 namespace Universe\Support;
 
 
-use Universe\Swoole\Http\Request;
+use Universe\Servers\RequestServer;
 
 abstract class Middleware
 {
     /**
-     * @param Request $request
+     * @param RequestServer $request
      * @param $next
      */
-     abstract public function handle(Request $request,$next);
+     abstract public function handle(RequestServer $request,$next);
 }

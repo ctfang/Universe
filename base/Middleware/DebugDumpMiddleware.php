@@ -12,18 +12,18 @@ namespace Universe\Middleware;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 use Symfony\Component\VarDumper\VarDumper;
+use Universe\Servers\RequestServer;
 use Universe\Support\Middleware;
-use Universe\Swoole\Http\Request;
 
 class DebugDumpMiddleware extends Middleware
 {
     /**
      * 调试模式下所有输出都在缓冲区
      *
-     * @param Request $request
+     * @param RequestServer RequestServer
      * @param $next
      */
-    public function handle(Request $request, $next)
+    public function handle(RequestServer $request, $next)
     {
         if( is_debug() ){
             // 如果调试开始，注册打印函数

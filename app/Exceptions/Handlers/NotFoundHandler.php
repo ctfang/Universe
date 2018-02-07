@@ -8,9 +8,9 @@
 
 namespace App\Exceptions\Handlers;
 
-
-use Universe\Exceptions\Handlers\Handler;
+use Universe\App;
 use Universe\Exceptions\NotFoundException;
+use Whoops\Handler\Handler;
 
 class NotFoundHandler extends Handler
 {
@@ -23,13 +23,15 @@ class NotFoundHandler extends Handler
      */
     public function handle()
     {
-        if( $this->exception instanceof NotFoundException){
-            $this->response->header('Status Code','404');
-            $this->response->header('Content-Type','text/html; charset=UTF-8');
-            $this->response->end('路由不存在，请设置路由');
+        if( $this->getException() instanceof NotFoundException){
+            $response = App::getShared('response');
+
+            $response->header('Status Code','404');
+            $response->header('Content-Type','text/html; charset=UTF-8');
+            $response->end('路由不存在，请设置路由');
 
             // 404 不需要特别处理，下面handler不执行
-            return false;
+            return Handler::QUIT;
         }
     }
 }

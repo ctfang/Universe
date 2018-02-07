@@ -6,7 +6,6 @@
  * Time: 上午12:08
  */
 
-use Universe\Tool\Str;
 
 if (!function_exists('env')) {
     /**
@@ -37,7 +36,7 @@ if (!function_exists('env')) {
                 return null;
         }
 
-        if (strlen($value) > 1 && Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
+        if (strlen($value) > 1 && \Universe\Util\Str::startsWith($value, '"') && \Universe\Util\Str::endsWith($value, '"')) {
             return substr($value, 1, -1);
         }
 

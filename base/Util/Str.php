@@ -6,7 +6,7 @@
  * Time: 20:25
  */
 
-namespace Universe\Tool;
+namespace Universe\Util;
 
 
 class Str

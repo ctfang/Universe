@@ -12,8 +12,8 @@ namespace Universe;
 use Dotenv\Dotenv;
 use Universe\Servers\ConfigServer;
 use Universe\Support\Di;
-use Universe\Swoole\Http\Request;
-use Universe\Swoole\Http\Response;
+use Universe\Servers\RequestServer;
+use Universe\Swoole\Http\ResponseServer;
 
 class App
 {
@@ -100,7 +100,7 @@ class App
              * 兼容赋值
              */
             $request  = new Request();
-            $response = new Response();
+            $response = new ResponseServer();
 
             self::$di->get('dispatcher')->handle($request, $response);
         }

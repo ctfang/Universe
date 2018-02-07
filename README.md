@@ -93,7 +93,7 @@ namespace App\Http\Middleware;
 
 
 use Universe\Support\Middleware;
-use Universe\Swoole\Http\Request;
+use Universe\Servers\RequestServer;
 
 class AuthMiddleware extends Middleware
 {
@@ -101,7 +101,7 @@ class AuthMiddleware extends Middleware
      * @param Request $request
      * @param $next
      */
-    public function handle(Request $request, $next)
+    public function handle(RequestServer $request, $next)
     {
         // 这里的代码在控制器前运行
         
@@ -123,7 +123,7 @@ class AuthMiddleware extends Middleware
      * @param Request $request
      * @param $next
      */
-    public function handle(Request $request, $next)
+    public function handle(RequestServer $request, $next)
     {
         if( !is_login() ){
             // 没有登录重定向到登陆页面

@@ -8,34 +8,37 @@
 
 namespace Universe\Events;
 
+use Swoole\Http\Request;
+use Swoole\Http\Response;
 use Swoole\Http\Server;
 use Universe\App;
-use Universe\Swoole\Http\Request;
-use Universe\Swoole\Http\Response;
+use Universe\Servers\ResponseServer;
 
 class HttpEvent
 {
     /**
      * 每个请求执行一次
      *
-     * @param \Swoole\Http\Request $request
-     * @param \Swoole\Http\Response $response
-     * @return \Swoole\Http\Response|Response
+     * @param Request $sRequest
+     * @param Response $sResponse
+     * @return ResponseServer
      * @author 明月有色 <2206582181@qq.com>
      */
-    public function onRequest(\Swoole\Http\Request $request, \Swoole\Http\Response $response)
+    public function onRequest(Request $sRequest, Response $sResponse)
     {
         ob_start();
 
-        $request = new Request($request);
-        $response = new Response($response);
+        $request     = App::getShared('request');
+        $response    = App::getShared('response');
+        $request->set($sRequest);
+        $response->set($sResponse);
+
         $disResponse = App::get('dispatcher')->handle($request, $response);
 
         if( ob_get_status() && $contents = ob_get_clean() ){
-            // 如果缓冲区还在开始，并且有内容输出
             $response->end($contents);
         }
-        if( $disResponse instanceof Response){
+        if( $disResponse instanceof ResponseServer){
             return $disResponse;
         }
     }

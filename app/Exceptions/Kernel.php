@@ -10,9 +10,9 @@ namespace App\Exceptions;
 
 
 use App\Exceptions\Handlers\NotFoundHandler;
-use App\Exceptions\Handlers\PrettyPageHandler;
 use Universe\Exceptions\Handlers\LoggerHandler;
 use Universe\Support\ExceptionKernel;
+use Whoops\Handler\PrettyPageHandler;
 
 class Kernel extends ExceptionKernel
 {
@@ -26,7 +26,9 @@ class Kernel extends ExceptionKernel
     {
         if( is_debug() ){
             // 如果调试，把错误展示出来
-            $this->server->pushHandler(new PrettyPageHandler());
+            $PrettyPageHandler = new PrettyPageHandler();
+            $PrettyPageHandler->handleUnconditionally(true);
+            $this->server->pushHandler( $PrettyPageHandler );
         }
         // 所有错误日记记录
         $this->server->pushHandler(new LoggerHandler());

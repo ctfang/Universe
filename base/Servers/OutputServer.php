@@ -9,11 +9,11 @@
 namespace Universe\Servers;
 
 
-use Universe\Swoole\Http\Response;
+use Universe\Swoole\Http\ResponseServer;
 
 class OutputServer
 {
-    public function end($data,Response $response)
+    public function end($data,ResponseServer $response)
     {
         if(is_array($data)){
             $response->header('Content-Type','application/json');

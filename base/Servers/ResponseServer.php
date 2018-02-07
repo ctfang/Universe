@@ -6,19 +6,21 @@
  * Time: 18:43
  */
 
-namespace Universe\Swoole\Http;
+namespace Universe\Servers;
 
 
-class Response extends \Swoole\Http\Response
+use Swoole\Http\Response;
+
+class ResponseServer extends Response
 {
     /**
-     * @var \Swoole\Http\Response
+     * @var Response
      */
-    protected $system;
+    protected $server;
 
-    public function __construct($response = null)
+    public function set($response = null)
     {
-        $this->system = $response;
+        $this->server = $response;
     }
 
     /**
@@ -28,7 +30,6 @@ class Response extends \Swoole\Http\Response
     public function end($html = '')
     {
         if( is_debug() && ob_get_status() ){
-            // 捕捉页面的输出
             $contents = ob_get_contents();
             if( $contents ){
                 $html .= $contents;
@@ -39,7 +40,7 @@ class Response extends \Swoole\Http\Response
         if (PHP_RUN_TYPE === 'php-fpm') {
             echo $html;
         } else {
-            $this->system->end($html);
+            $this->server->end($html);
         }
     }
 
@@ -54,7 +55,7 @@ class Response extends \Swoole\Http\Response
         if (PHP_RUN_TYPE === 'php-fpm') {
             //header($key.': '.$value);
         } else {
-            $this->system->header($key, $value, $ucwords);
+            $this->server->header($key, $value, $ucwords);
         }
     }
 
@@ -70,6 +71,6 @@ class Response extends \Swoole\Http\Response
      */
     public function cookie($name, $value = NULL, $expires = NULL, $path = NULL, $domain = NULL, $secure = NULL, $httponly = NULL)
     {
-        $this->system->cookie($name, $value, $expires, $path, $domain, $secure, $httponly);
+        $this->server->cookie($name, $value, $expires, $path, $domain, $secure, $httponly);
     }
 }

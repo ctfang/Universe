@@ -8,13 +8,12 @@
 
 namespace Universe\Support;
 
-
-use Universe\Servers\ExceptionServer;
+use Whoops\Run;
 
 abstract class ExceptionKernel
 {
     /**
-     * @var ExceptionServer
+     * @var Run
      */
     protected $server;
 
@@ -22,7 +21,7 @@ abstract class ExceptionKernel
      * ExceptionKernel constructor.
      * @param $server
      */
-    public function __construct($server)
+    public function __construct(&$server)
     {
         $this->server = $server;
     }

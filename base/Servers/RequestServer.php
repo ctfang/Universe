@@ -6,22 +6,25 @@
  * Time: 18:44
  */
 
-namespace Universe\Swoole\Http;
+namespace Universe\Servers;
 
 
+use Swoole\Http\Request;
 use Universe\Exceptions\NoRecursiveException;
 
-class Request extends \Swoole\Http\Request
+class RequestServer extends Request
 {
     private $filters;
+    private $system;
 
     /**
      * 初始化，对命令行和fpm模式下兼容运行
      *
      * @param null $request
      */
-    public function __construct($request = null)
+    public function set($request = null)
     {
+        $this->system = $request;
         foreach (filter_list() as $value){
             $this->filters[$value] = filter_id($value);
         }
