@@ -20,7 +20,7 @@ class DebugDumpMiddleware extends Middleware
     /**
      * 调试模式下所有输出都在缓冲区
      *
-     * @param RequestServer RequestServer
+     * @param RequestServer $request
      * @param $next
      */
     public function handle(RequestServer $request, $next)
@@ -34,6 +34,6 @@ class DebugDumpMiddleware extends Middleware
             });
         }
 
-        return$next($request);
+        return $next($request);
     }
 }

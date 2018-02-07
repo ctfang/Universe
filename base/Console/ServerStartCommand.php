@@ -77,7 +77,7 @@ class ServerStartCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->table(['配置key','值'], $list);
 
-        unset($io,$list,$input,$output,$temp,$daemonize,$config,$serverConfig);
+        unset($io,$list,$input,$output,$temp,$daemonize,$config,$serverConfig,$value,$key);
         $this->app->start();
     }
 }

@@ -64,7 +64,7 @@ class IndexController extends Controller
      */
     public function test_echo()
     {
-        echo "虽然是cli-swoole应用，但也可以输出到页面";
+        echo "虽然是cli-swoole应用，但也可以输出到页面。";
     }
 
 
