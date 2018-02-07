@@ -17,7 +17,11 @@ use Whoops\Handler\PrettyPageHandler;
 class Kernel extends ExceptionKernel
 {
     /**
-     * 注册异常处理;执行顺序,先入后出
+     * 注册异常处理
+     *
+     * 执行顺序 先入后出
+     * $this->server->pushHandler(new LoggerHandler());
+     * $this->server->pushHandler(new ShowErrorHandler());
      *
      * @return mixed
      * @author 明月有色 <2206582181@qq.com>
