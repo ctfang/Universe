@@ -37,6 +37,11 @@ class IndexController extends Controller
         ];
     }
 
+    public function testGet()
+    {
+        dump($this->request->get());
+    }
+
     /**
      * 首页
      */

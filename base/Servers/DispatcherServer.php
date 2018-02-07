@@ -121,10 +121,14 @@ class DispatcherServer
         }elseif ($data instanceof ResponseServer){
             return $data;
         }elseif($data){
-            App::get('output')->end($data, $response);
+            App::get('response')->end($data, $response);
         }
     }
 
+    /**
+     * @return \Closure
+     * @author 明月有色 <2206582181@qq.com>
+     */
     protected function getInitialSlice()
     {
         return function ($stack, $pipe) {
@@ -134,16 +138,29 @@ class DispatcherServer
         };
     }
 
+    /**
+     * 控制器闭包
+     *
+     * @param $request
+     * @param $response
+     * @param $controller
+     * @param $action
+     * @param $paraData
+     * @return \Closure
+     * @author 明月有色 <2206582181@qq.com>
+     */
     protected function getDestination($request, $response, $controller, $action, $paraData)
     {
         return function () use ($controller, $request, $response, $action, $paraData) {
-            return App::get('output')->end(
-                call_user_func_array([new $controller($request, $response), $action], $paraData),
-                $response
-            );
+            return call_user_func_array([new $controller($request, $response), $action], $paraData);
         };
     }
 
+    /**
+     * @param \Closure $destination
+     * @return \Closure
+     * @author 明月有色 <2206582181@qq.com>
+     */
     protected function prepareDestination(\Closure $destination)
     {
         return function ($passable) use ($destination) {

@@ -16,7 +16,6 @@ $app->initializeServices([
     \Universe\Providers\ResponseServerProvider::class,
     \Universe\Providers\ExceptionServerProvider::class,
     \Universe\Providers\DispatcherServiceProvider::class,
-    \Universe\Providers\OutputServerProvider::class,
     \Universe\Providers\DatabaseServerProvider::class,
 ]);
 

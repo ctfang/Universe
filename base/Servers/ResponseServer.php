@@ -29,6 +29,16 @@ class ResponseServer extends Response
      */
     public function end($html = '')
     {
+        if(is_array($html)){
+            $this->header('Content-Type','application/json');
+            $html = json_encode($html,JSON_UNESCAPED_UNICODE);
+        }elseif ( is_object($html) ){
+            $this->header('Content-Type','application/json');
+            $html = json_encode($html,JSON_UNESCAPED_UNICODE);
+        }elseif($html!==null){
+            $this->header('Content-Type','text/html; charset=UTF-8');
+        }
+
         if( is_debug() && ob_get_status() ){
             $contents = ob_get_contents();
             if( $contents ){

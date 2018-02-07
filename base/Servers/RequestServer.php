@@ -56,7 +56,9 @@ class RequestServer extends Request
     public function get($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
     {
         if( !isset($this->get[$name]) ){
-            if( $noRecursive==true ){
+            if( !$name ){
+                return $this->get;
+            }elseif( $noRecursive==true ){
                 throw new NoRecursiveException($name.':不能缺少');
             }
             return $defaultValue;

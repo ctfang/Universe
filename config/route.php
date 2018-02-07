@@ -32,4 +32,5 @@ Route::group(['prefix' => '/test', 'middleware' => 'login'],function () {
     Route::get('', 'IndexController@test');
     Route::get('/one', 'IndexController@one');
     Route::get('/tow', 'IndexController@tow');
+    Route::get('/get', 'IndexController@testGet');
 });
