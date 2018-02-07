@@ -98,7 +98,7 @@ use Universe\Servers\RequestServer;
 class AuthMiddleware extends Middleware
 {
     /**
-     * @param Request $request
+     * @param RequestServer $request
      * @param $next
      */
     public function handle(RequestServer $request, $next)
@@ -120,7 +120,7 @@ class AuthMiddleware extends Middleware
 class AuthMiddleware extends Middleware
 {
     /**
-     * @param Request $request
+     * @param RequestServer $request
      * @param $next
      */
     public function handle(RequestServer $request, $next)
@@ -192,7 +192,7 @@ class Kernel extends ExceptionKernel
 dump(DB::table('test')->find(1));
 User::find(1);l
 ~~~~
-使用上完全跟laravel一样
+使用上完全跟laravel一样，因为集成的是相同的composer包，如果需要用其他的orm，重新注册DI即可
     
 </details>
 
