@@ -11,11 +11,32 @@
 
 ## 已经实现的功能列表
 
-<details>
-    <summary>运行使用</summary>
+<details open="open">
+    <summary>安装使用</summary>
     
+git安装
+~~~~
+git clone https://github.com/selden1992/Universe.git
+~~~~
+安装依赖
+~~~~
+cd Universe
+composer install
+~~~~
+运行，单独运行php server有帮助命令
+~~~~php
+// 调试模式
+php server start
+// 守护模式
+php server start --daemonize
+// 重启服务
+php server reload
+~~~~
+启动时，会输出域名端口基本信息
+
+
 - fpm模式   ：   配置nginx到项目/public目录
-- swoole模式：进入项目目录运行 php server.php；命令行启动时，文件更改不会立即生效，需要重启服务
+- swoole模式：进入项目目录运行 php server start；命令行启动时，文件更改不会立即生效，需要重启服务
     
 </details>
 
