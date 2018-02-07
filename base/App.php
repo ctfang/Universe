@@ -94,8 +94,13 @@ class App
      */
     public function start()
     {
+        /**
+         * 启动端口监听服务
+         * PHP_RUN_TYPE 在cli分类上再区分运行类别
+         */
         if (PHP_RUN_TYPE == 'swoole') {
-            self::$di->getShared('server')->start();
+            $server = self::$di->getShared('server');
+            $server->start();
         } else {
             // fpm and 调试模式
             $request     = App::getShared('request');

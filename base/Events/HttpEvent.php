@@ -54,6 +54,12 @@ class HttpEvent
      */
     public function onStart(Server $server)
     {
+        /**
+         * 注册异常捕捉
+         * 注册之前的报出的异常不能被捕捉
+         */
+        App::get('exception')->register();
+
         // 检查目录、注册集群等
     }
 
@@ -75,11 +81,7 @@ class HttpEvent
      */
     public function onWorkerStart(Server $server)
     {
-        /**
-         * 注册异常捕捉
-         * 注册之前的报出的异常不能被捕捉
-         */
-        App::get('exception')->register();
+
     }
 
     /**

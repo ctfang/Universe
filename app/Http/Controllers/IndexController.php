@@ -15,6 +15,14 @@ use Universe\Support\DB;
 class IndexController extends Controller
 {
     /**
+     * 首页
+     */
+    public function index()
+    {
+        throw new \Exception('测试、调试错误');
+    }
+
+    /**
      * 浏览器图标请求
      *
      * @author 明月有色 <2206582181@qq.com>
@@ -24,11 +32,23 @@ class IndexController extends Controller
         $this->response->end("OK");
     }
 
+    /**
+     * 字符串输出
+     *
+     * @return string
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public function getString()
     {
         return '输出字符串;获取请求参数:' . $this->request->get('id', 'int', 0);
     }
 
+    /**
+     * json返回
+     *
+     * @return array
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public function getJson()
     {
         return [
@@ -37,16 +57,24 @@ class IndexController extends Controller
         ];
     }
 
+    /**
+     * 输出重定向
+     *
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function test_echo()
+    {
+        echo "虽然是cli-swoole应用，但也可以输出到页面";
+    }
+
+
+    /**
+     * 打印$_GET
+     *
+     * @author 明月有色 <2206582181@qq.com>
+     */
     public function testGet()
     {
         dump($this->request->get());
-    }
-
-    /**
-     * 首页
-     */
-    public function index()
-    {
-        throw new \Exception('测试、调试错误');
     }
 }
