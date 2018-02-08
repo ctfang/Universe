@@ -42,7 +42,7 @@ class ServerStartCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $daemonize = $input->getOption('daemonize');
-        $daemonize = $daemonize === 1?1:0;
+        $daemonize = $daemonize == 1?1:0;
 
         $config = App::getShared('config');
         $serverConfig = $config->get('server');
