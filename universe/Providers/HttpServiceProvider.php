@@ -34,7 +34,7 @@ class HttpServiceProvider extends AbstractServiceProvider
         $this->di->set($this->serviceName,function (){
             $serverConfig = App::get('config')->get('server');
             $httpServer = new Server($serverConfig['http']['host'],$serverConfig['http']['port']);
-            $httpServer->set($serverConfig['set']);
+            $httpServer->set($serverConfig['http']['set']);
             $http = new HttpEvent();
             foreach ($this->onList as $function=>$event){
                 $httpServer->on($event,[$http,$function]);

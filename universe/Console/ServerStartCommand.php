@@ -42,17 +42,16 @@ class ServerStartCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $daemonize = $input->getOption('daemonize');
-        if ($daemonize === false) {
-            $daemonize = 0;
-        } else {
-            $daemonize = 1;
-        }
+        $daemonize = $daemonize === false?0:1;
+
         $config = App::getShared('config');
         $serverConfig = $config->get('server');
-        $serverConfig['set']['daemonize'] = $daemonize;
+
+        $serverConfig['http']['set']['daemonize'] = $daemonize;
         $config->set('server', $serverConfig);
 
-        $table = array_merge($serverConfig['http'],$serverConfig['set']);
+        $table = array_merge($serverConfig['http'],$serverConfig['http']['set']);
+        unset($table['set']);
         $list  = [];
         foreach ($table as $key=>$value){
             switch ($key){
@@ -74,7 +73,7 @@ class ServerStartCommand extends Command
 
         $io = new SymfonyStyle($input, $output);
         $io->table(['配置key','值'], $list);
-        if( $value ){
+        if( !$daemonize ){
             $output->writeln("<info>按键 [ctrl+c] 停止</info>");
         }
         unset($io,$list,$input,$output,$temp,$daemonize,$config,$serverConfig,$value,$key);

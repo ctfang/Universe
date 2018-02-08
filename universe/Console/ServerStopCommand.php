@@ -23,7 +23,7 @@ class ServerStopCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $pid_file = App::get('config')->get('server.set.pid_file');
+        $pid_file = App::get('config')->get('server.http.set.pid_file');
 
         if( !file_exists($pid_file) || !$pid = file_get_contents($pid_file) ){
             $output->writeln("<error>pid日记文件不存在，手动删除</error>");
