@@ -28,8 +28,8 @@ return [
             'port'=>env('SERVER_PORT','8080'),
             // swoole server 配置
             'set'=>[
-                'log_file' => dirname(__DIR__)."/bootstrap/swoole.log",
-                'pid_file' => dirname(__DIR__) . '/storage/cache/server.pid',
+                'log_file' => dirname(__DIR__)."/storage/swoole.log",
+                'pid_file' => dirname(__DIR__) . '/bootstrap/cache/server.pid',
                 'log_level' => 5,
                 'worker_num' => 4,
                 'task_worker_num'=>0
