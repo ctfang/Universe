@@ -37,9 +37,8 @@ php server reload
 ~~~~
 启动时，会输出域名端口基本信息
 
-
-- fpm模式   ：   配置nginx到项目/public目录
-- swoole模式：进入项目目录运行 php server start；命令行启动时，文件更改不会立即生效，需要重启服务
+- swoole模式：进入项目目录运行 php server start（修改代码支持即时生效）
+- fpm模式   ：   配置nginx到项目/public目录，
     
 </details>
 
