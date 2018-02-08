@@ -1,4 +1,4 @@
-这是一个基于swoole扩展的php框架，可以无缝运行在swoole_server模式和nginx+fpm模式，所以可以在nginx+fpm模式下开发调试，享受php语言的便捷开发，生产环境又可以拥有swoole常住内存带来的性能；本框架大量参考了laravel、和phalcon框架的功能实现，例如框架骨架使用了DI服务，所有框架先注册进入DI树，注册完后才使用，这样可以更好的扩展框架功能，哪怕是覆盖框架核心服务都行。完整的copy了laravel的路由(route)和中间件(middleware)。因为universe是常住内存运行的，所以DI服务都是一次注册多次使用，不会频繁操作IO，以实现高性能。
+这是一个基于swoole扩展的php框架，调试模式下代码跟普通php-fpm模式一样，是实时生效的；框架部分大量参考了phalcon和laravel代码的实现，例如框架骨架使用了DI服务，所有框架先注册进入DI树，注册完后才使用，这样可以更好的扩展框架功能，哪怕是覆盖框架核心服务都行。因为universe是常住内存运行的，所以DI服务都是一次注册多次使用。
 
 <p align="">
 <a href="https://packagist.org/packages/selden1992/Universe"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -27,10 +27,10 @@ composer install
 ~~~~
 运行，单独运行php server有帮助命令
 ~~~~php
-// 调试模式
+// 守护模式，调试下支持代码更改实时生效
 php server start
-// 守护模式
-php server start --daemonize
+// 调试模式
+php server start --daemonize=0
 // 重启服务
 php server reload
 ~~~~
