@@ -73,6 +73,6 @@ class IndexController extends Controller
      */
     public function testGet()
     {
-        dump( User::query()->select('fdsa')->find() );
+        dump( User::find(1) );
     }
 }
