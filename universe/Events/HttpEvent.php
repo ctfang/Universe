@@ -75,6 +75,10 @@ class HttpEvent
      */
     public function onWorkerStart(Server $server)
     {
+        if( function_exists('opcache_reset') ){
+            // 清理 opcache 缓存
+            opcache_reset();
+        }
         /**
          * 注册异常捕捉
          * 注册之前的报出的异常不能被捕捉

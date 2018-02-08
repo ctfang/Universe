@@ -10,8 +10,6 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
-use Universe\App;
-use Universe\Support\DB;
 
 class IndexController extends Controller
 {
@@ -68,7 +66,6 @@ class IndexController extends Controller
         echo "虽然是cli-swoole应用，但也可以输出到页面。";
     }
 
-
     /**
      * 打印$_GET
      *
@@ -76,6 +73,6 @@ class IndexController extends Controller
      */
     public function testGet()
     {
-        dump( $this->request->get());
+        dump( User::query()->select('fdsa')->find() );
     }
 }
