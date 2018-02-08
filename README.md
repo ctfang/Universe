@@ -16,12 +16,13 @@
 <details open="open">
     <summary>安装使用</summary>
     
+composer安装
+~~~~
+composer create-project selden1992/universe
+~~~~
 git安装
 ~~~~
 git clone https://github.com/selden1992/Universe.git
-~~~~
-安装依赖
-~~~~
 cd Universe
 composer install
 ~~~~
@@ -39,6 +40,14 @@ php server reload
 
 - fpm模式   ：   配置nginx到项目/public目录
 - swoole模式：进入项目目录运行 php server start；命令行启动时，文件更改不会立即生效，需要重启服务
+    
+</details>
+
+<details>
+    <summary>代码即时生效</summary>
+    
+借助中间件，在所有业务处理完后，向server发起reload，新的请求就运行新的代码。
+注入di的服务不会立即更新
     
 </details>
 
