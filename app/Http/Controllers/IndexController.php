@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use Universe\App;
 use Universe\Support\DB;
 
 class IndexController extends Controller
@@ -75,6 +76,6 @@ class IndexController extends Controller
      */
     public function testGet()
     {
-        dump($this->request->get());
+        dump( );
     }
 }
