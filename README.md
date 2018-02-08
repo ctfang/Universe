@@ -228,11 +228,19 @@ User::find(1);l
     
 </details>
 
+
+<details>
+    <summary>事件系统</summary>
+
+~~~~php
+App::get('events')
+~~~~
+</details>
+
 ## TODO 准备开发（也可能不开发）
 
 - [x] 连接池
 - [ ] 视图
-- [ ] 事件系统
 
 
 ## 如何加入开发组
