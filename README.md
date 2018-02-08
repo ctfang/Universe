@@ -34,6 +34,7 @@ php server start
 php server start --daemonize=0
 // 重启服务
 php server reload
+php server stop
 ~~~~
 启动时，会输出域名端口基本信息
 
