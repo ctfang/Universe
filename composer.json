@@ -2,7 +2,7 @@
   "autoload":{
     "psr-4": {
       "App\\":"app/",
-      "Universe\\":"Universe/"
+      "Universe\\":"universe/"
     },
     "files":[
       "base/helpers.php"
