@@ -52,8 +52,6 @@ class ServerStartCommand extends Command
         $serverConfig['set']['daemonize'] = $daemonize;
         $config->set('server', $serverConfig);
 
-        $output->writeln("<info>启动配置</info>");
-
         $table = array_merge($serverConfig['http'],$serverConfig['set']);
         $list  = [];
         foreach ($table as $key=>$value){
@@ -76,7 +74,9 @@ class ServerStartCommand extends Command
 
         $io = new SymfonyStyle($input, $output);
         $io->table(['配置key','值'], $list);
-
+        if( $value ){
+            $output->writeln("<info>按键 [ctrl+c] 停止</info>");
+        }
         unset($io,$list,$input,$output,$temp,$daemonize,$config,$serverConfig,$value,$key);
         $this->app->start();
     }
