@@ -1,7 +1,7 @@
 {
   "name": "selden1992/universe",
   "description": "The Swoole Framework.",
-  "keywords": ["framework", "universe","swoole","phalcon", "laravel"],
+  "keywords": ["framework", "universe","swoole","phalcon", "laravel","php"],
   "license": "MIT",
   "type": "project",
   "authors": [
