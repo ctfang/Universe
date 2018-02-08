@@ -76,6 +76,6 @@ class IndexController extends Controller
      */
     public function testGet()
     {
-        dump( );
+        dump( $this->request->get());
     }
 }

@@ -33,7 +33,7 @@ class ServerStartCommand extends Command
     public function configure()
     {
         $this->setName('start')
-            ->addOption('daemonize', null, InputOption::VALUE_OPTIONAL, '守护进程启动', false)
+            ->addOption('daemonize', null, InputOption::VALUE_OPTIONAL, '守护进程启动', true)
             ->setDescription('启动服务,默认调试模式启动');
 
 
@@ -42,7 +42,7 @@ class ServerStartCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $daemonize = $input->getOption('daemonize');
-        $daemonize = $daemonize === false?0:1;
+        $daemonize = $daemonize === true?1:0;
 
         $config = App::getShared('config');
         $serverConfig = $config->get('server');
