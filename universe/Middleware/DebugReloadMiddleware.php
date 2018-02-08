@@ -16,6 +16,8 @@ use Universe\Support\Middleware;
 class DebugReloadMiddleware extends Middleware
 {
     /**
+     * 调试并且守护模式下，每次请求都向进程发重启信号
+     *
      * @param RequestServer $request
      * @param $next
      */
