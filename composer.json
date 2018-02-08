@@ -5,7 +5,7 @@
       "Universe\\":"universe/"
     },
     "files":[
-      "base/helpers.php"
+      "universe/helpers.php"
     ]
   },
   "require": {

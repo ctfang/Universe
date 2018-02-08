@@ -10,7 +10,6 @@ namespace App\Exceptions;
 
 
 use App\Exceptions\Handlers\NotFoundHandler;
-use Universe\Exceptions\Handlers\LoggerHandler;
 use Universe\Support\ExceptionKernel;
 use Whoops\Handler\PrettyPageHandler;
 
@@ -34,8 +33,7 @@ class Kernel extends ExceptionKernel
             $PrettyPageHandler->handleUnconditionally(true);
             $this->server->pushHandler( $PrettyPageHandler );
         }
-        // 所有错误日记记录
-        $this->server->pushHandler(new LoggerHandler());
+
         // 404 优先处理
         $this->server->pushHandler(new NotFoundHandler());
     }
