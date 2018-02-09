@@ -13,10 +13,6 @@ require __DIR__.'/bootstrap/autoload.php';
 
 $app = require __DIR__.'/bootstrap/app.php';
 
-$console = new \Symfony\Component\Console\Application('Universe','1.0');
-
-$console->add(new \Universe\Console\ServerStartCommand($app));
-$console->add(new \Universe\Console\ServerStopCommand());
-$console->add(new \Universe\Console\ServerReloadCommand());
+$console = new \Universe\Console($app);
 
 $console->run();

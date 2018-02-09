@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee712aa33622d921a1e54bc21b29f40d",
+    "content-hash": "47ecf8f8553bcb9dc302a7d4c6b92678",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -136,7 +136,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v5.6.0",
+            "version": "v5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -180,7 +180,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v5.6.0",
+            "version": "v5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -224,16 +224,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v5.6.0",
+            "version": "v5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "521c3bcdd04183c6e44ba532a51978675d17cce3"
+                "reference": "73b0b9c9b1b55ab0cffb558a8b68d533e98c86c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/illuminate/database/521c3bcdd04183c6e44ba532a51978675d17cce3.zip",
-                "reference": "521c3bcdd04183c6e44ba532a51978675d17cce3",
+                "url": "https://files.phpcomposer.com/files/illuminate/database/73b0b9c9b1b55ab0cffb558a8b68d533e98c86c3.zip",
+                "reference": "73b0b9c9b1b55ab0cffb558a8b68d533e98c86c3",
                 "shasum": ""
             },
             "require": {
@@ -279,11 +279,11 @@
                 "orm",
                 "sql"
             ],
-            "time": "2018-02-07T00:03:25+00:00"
+            "time": "2018-02-08T16:40:25+00:00"
         },
         {
             "name": "illuminate/events",
-            "version": "v5.6.0",
+            "version": "v5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -328,7 +328,7 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v5.6.0",
+            "version": "v5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
@@ -825,6 +825,55 @@
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
             "time": "2018-01-18T22:19:33+00:00"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v4.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "8b08180f2b7ccb41062366b9ad91fbc4f1af8601"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/symfony/finder/8b08180f2b7ccb41062366b9ad91fbc4f1af8601.zip",
+                "reference": "8b08180f2b7ccb41062366b9ad91fbc4f1af8601",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Finder\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-01-03T07:38:00+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",

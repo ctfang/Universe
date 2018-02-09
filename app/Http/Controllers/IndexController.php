@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use Universe\App;
 
 class IndexController extends Controller
 {
@@ -73,6 +74,19 @@ class IndexController extends Controller
      */
     public function testGet()
     {
-        dump( User::find(1) );
+        $db = $this->db();
+        $db::transaction(function (){
+            dump( User::find(1) );
+        });
+
+    }
+
+    /**
+     * @return \Illuminate\Database\Capsule\Manager
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function db()
+    {
+        return App::get('db');
     }
 }
