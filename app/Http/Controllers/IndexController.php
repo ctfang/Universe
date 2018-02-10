@@ -75,10 +75,7 @@ class IndexController extends Controller
     public function testGet()
     {
         $db = $this->db();
-        $db::transaction(function (){
-            dump( User::find(1) );
-        });
-
+        dump(User::find(1));
     }
 
     /**

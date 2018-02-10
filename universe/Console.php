@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: baichou
+ * User: 明月有色
  * Date: 2018/2/9
  * Time: 10:54
  */
@@ -26,24 +26,31 @@ class Console extends Application
 
         $this->app = $app;
 
-
-        $pathList = [
-            $this->app::getPath('/app/Console/Commands'),
-        ];
-
         $namespace = "App\\";
 
+        foreach ((new Finder)->in($this->app::getPath('/app/Console/Commands'))->files() as $command) {
+            $command = $namespace.str_replace(
+                    ['/', '.php'],
+                    ['\\', ''],
+                    Str::after($command->getPathname(), $this->app::getPath('/app').DIRECTORY_SEPARATOR)
+                );
+            if (is_subclass_of($command, Command::class)){
+                $this->add(new $command);
+            }
+        }
 
-        foreach ($pathList as $path){
-            foreach ((new Finder)->in($path)->files() as $command) {
-                $command = $namespace.str_replace(
-                        ['/', '.php'],
-                        ['\\', ''],
-                        Str::after($command->getPathname(), $this->app::getPath('/app').DIRECTORY_SEPARATOR)
-                    );
-                if (is_subclass_of($command, Command::class)){
-                    $this->add(new $command);
-                }
+        $namespace = "Universe\\";
+
+        foreach ((new Finder)->in(__DIR__.'/Console/Commands')->files() as $command) {
+            $command = $namespace.str_replace(
+                    ['/', '.php'],
+                    ['\\', ''],
+                    Str::after($command->getPathname(), $this->app::getPath('/universe').DIRECTORY_SEPARATOR)
+                );
+            if (is_subclass_of($command, Command::class)){
+                $this->add(new $command);
+            }else{
+                dump($command);
             }
         }
     }

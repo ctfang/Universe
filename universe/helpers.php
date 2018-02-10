@@ -44,6 +44,18 @@ if (!function_exists('env')) {
     }
 }
 
+if (! function_exists('database_path')) {
+    /**
+     * Get the database path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function database_path($path = '')
+    {
+        return '';
+    }
+}
 
 /**
  * 判断时候调试模式

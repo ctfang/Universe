@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: baichou
+ * User: 明月有色
  * Date: 2018/1/31
  * Time: 14:07
  */
@@ -19,7 +19,10 @@ class DatabaseServerProvider extends AbstractServiceProvider
     {
         $this->di->set($this->serviceName,function () {
             $capsule = new Capsule();
-            $capsule->addConnection( App::get('config')->get('database') );
+            $config  = App::get('config')->get('database');
+            $default = $config['default'];
+
+            $capsule->addConnection( $config['connections'][$default] );
 
             $capsule->setEventDispatcher( App::get('events') );
 
