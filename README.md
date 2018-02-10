@@ -237,6 +237,15 @@ App::get('events')
 ~~~~
 </details>
 
+<details>
+    <summary>数据迁移</summary>
+
+输入命令查看帮助,集成phinx
+~~~~php
+php moon
+~~~~
+</details>
+
 ## TODO 准备开发（也可能不开发）
 
 - [x] 连接池
