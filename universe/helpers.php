@@ -53,7 +53,7 @@ if (! function_exists('database_path')) {
      */
     function database_path($path = '')
     {
-        return '';
+        return \Universe\App::getPath('/database').$path;
     }
 }
 

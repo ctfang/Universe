@@ -74,8 +74,10 @@ class IndexController extends Controller
      */
     public function testGet()
     {
-        $db = $this->db();
-        dump(User::find(1));
+        $facade = App::getShared('facade');
+        $facade->register();
+
+        dump( \DB::getConnection()->getPdo() );
     }
 
     /**

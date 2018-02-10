@@ -18,6 +18,7 @@ $app->initializeServices([
     \Universe\Providers\DispatcherServiceProvider::class,
     \Universe\Providers\DatabaseServerProvider::class,
 
+    \App\Providers\FacadeServiceProvider::class,
     \App\Providers\EventServiceProvider::class,
 ]);
 
