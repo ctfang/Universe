@@ -18,11 +18,11 @@
     
 composer安装
 ~~~~
-composer create-project selden1992/universe
+composer create-project ctfang/universe
 ~~~~
 git安装
 ~~~~
-git clone https://github.com/selden1992/Universe.git
+git clone https://github.com/ctfang/Universe.git
 cd Universe
 composer install
 ~~~~
