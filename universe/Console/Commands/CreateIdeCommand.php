@@ -22,8 +22,6 @@ class CreateIdeCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $facade = App::get('facade');
-        $facade->register();
         $arrFacades = App::get('facade')->getFacades();
 
         if ($arrFacades && is_array($arrFacades)) {
@@ -88,7 +86,12 @@ class CreateIdeCommand extends Command
                 $arrParam[] = $type . '$' . $parameter->getName() . $DefaultValue;
             } elseif( $parameter->isOptional() ) {
                 if( $parameter->allowsNull() ){
-                    $DefaultValue = '=' . str_replace([PHP_EOL, ' '], '', var_export($parameter->getDefaultValue(), true));
+                    try{
+                        $DefaultValue = $parameter->getDefaultValue();
+                    }catch (\Exception $exception){
+                        $DefaultValue = '可变参数';
+                    }
+                    $DefaultValue = '=' . str_replace([PHP_EOL, ' '], '', var_export($DefaultValue, true));
                     $arrParam[] = '$' . $parameter->getName(). $DefaultValue;
                 }else{
                     $arrParam[] = '$' . $parameter->getName()."=''";
