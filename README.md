@@ -246,10 +246,6 @@ php moon
 ~~~~
 </details>
 
-## TODO 准备开发（也可能不开发）
-
-- [x] 连接池
-- [ ] 视图
 
 连接池，如果需要orm默认使用连接池执行，可以在database注入时，传入新的Connection
 默认Connection在 /illuminate/database/Connection.php
