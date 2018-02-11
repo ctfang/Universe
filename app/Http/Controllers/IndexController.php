@@ -9,10 +9,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Events\TestEvent;
-use App\Models\User;
-use Universe\App;
-
 class IndexController extends Controller
 {
     /**
