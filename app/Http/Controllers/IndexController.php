@@ -16,10 +16,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        //\Cache::set('test','ttttt');
-
-        dump(\Cache::get('test'));
-        //throw new \Exception('测试、调试错误');
+        throw new \Exception('测试、调试错误');
     }
 
     /**
