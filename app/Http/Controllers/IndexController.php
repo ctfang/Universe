@@ -57,33 +57,4 @@ class IndexController extends Controller
             'string' => '响应json格式，自动加Json Header',
         ];
     }
-
-    /**
-     * 输出重定向
-     *
-     * @author 明月有色 <2206582181@qq.com>
-     */
-    public function test_echo()
-    {
-        echo "虽然是cli-swoole应用，但也可以输出到页面。";
-    }
-
-    /**
-     * 打印$_GET
-     *
-     * @author 明月有色 <2206582181@qq.com>
-     */
-    public function testGet()
-    {
-        dump( $this->db()->getConnection()->getPdo() );
-    }
-
-    /**
-     * @return \Illuminate\Database\Capsule\Manager
-     * @author 明月有色 <2206582181@qq.com>
-     */
-    public function db()
-    {
-        return App::get('db');
-    }
 }
