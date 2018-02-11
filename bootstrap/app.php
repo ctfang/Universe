@@ -22,4 +22,6 @@ $app->initializeServices([
     \App\Providers\EventServiceProvider::class,
 ]);
 
+$app::getShared('facade')->register();
+
 return $app;

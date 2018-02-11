@@ -49,8 +49,6 @@ class Console extends Application
                 );
             if (is_subclass_of($command, Command::class)){
                 $this->add(new $command);
-            }else{
-                dump($command);
             }
         }
     }

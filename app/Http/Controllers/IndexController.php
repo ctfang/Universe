@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Events\TestEvent;
 use App\Models\User;
 use Universe\App;
 
@@ -74,10 +75,7 @@ class IndexController extends Controller
      */
     public function testGet()
     {
-        $facade = App::getShared('facade');
-        $facade->register();
-
-        dump( \DB::getConnection()->getPdo() );
+        dump( $this->db()->getConnection()->getPdo() );
     }
 
     /**

@@ -6,8 +6,7 @@
  * Time: 14:39
  */
 
-namespace App\Console\Commands;
-
+namespace Universe\Console\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -52,7 +51,7 @@ class CreateIdeCommand extends Command
         }
         $strFunction = implode(PHP_EOL, $publicFunctions);
         $strFunction = "<?php{$nn}{$nn}class {$facade}{$nn}{{$nn}{$strFunction}{$nn} }";
-        $savePath    = App::getPath() . '/storage/framework/ide';
+        $savePath    = App::getPath() . '/bootstrap/cache/ide';
         if (!is_dir($savePath)) {
             mkdir($savePath, 0755, true);
         }
@@ -98,7 +97,7 @@ class CreateIdeCommand extends Command
                 $arrParam[] = '$' . $parameter->getName();
             }
         }
-        $strReturn       = "return '';";
+        $strReturn       = "// 这是给编辑器使用的，不执行";
         $stringParam     = implode(',', $arrParam);
         $publicFunctions = "{$s4}{$reflectionMethod->getDocComment()}{$nn}{$s4}public static function {$reflectionMethod->getName()}({$stringParam}){$nn}{$s4}{{$nn}{$s4}{$s4}{$strReturn}{$nn}{$s4}}{$nn}";
         return $publicFunctions;
