@@ -85,21 +85,31 @@ if (! function_exists('root_path')) {
     }
 }
 
-/**
- * 判断时候调试模式
- *
- * @return mixed
- * @author 明月有色 <2206582181@qq.com>
- */
-function is_debug()
-{
-    if( !defined('IS_DEBUG') ){
-        define('IS_DEBUG',\Universe\App::getDi()->get('config')->get('debug',false));
+if (! function_exists('is_debug')) {
+    /**
+     * 判断时候调试模式
+     *
+     * @return mixed
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    function is_debug()
+    {
+        if( !defined('IS_DEBUG') ){
+            define('IS_DEBUG',\Universe\App::getDi()->get('config')->get('debug',false));
+        }
+        return IS_DEBUG;
     }
-    return IS_DEBUG;
 }
 
-function view($file)
-{
-    return App::get('view')->make($file);
+
+if (! function_exists('view')) {
+    /**
+     * @param $file
+     * @return mixed
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    function view($file)
+    {
+        return App::get('view')->make($file);
+    }
 }
