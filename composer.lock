@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "51cfdee9ce9f79f3949fbe087c024763",
+    "content-hash": "4086258fadc0450d02513cfc17b3e3d2",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -327,6 +327,56 @@
             "time": "2017-12-14T13:30:55+00:00"
         },
         {
+            "name": "illuminate/filesystem",
+            "version": "v5.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/filesystem.git",
+                "reference": "be0efd11a676ce0fd25f6ccb0bfb4cc522b73ca2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/illuminate/filesystem/be0efd11a676ce0fd25f6ccb0bfb4cc522b73ca2.zip",
+                "reference": "be0efd11a676ce0fd25f6ccb0bfb4cc522b73ca2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.6.*",
+                "illuminate/support": "5.6.*",
+                "php": "^7.1.3",
+                "symfony/finder": "~4.0"
+            },
+            "suggest": {
+                "league/flysystem": "Required to use the Flysystem local and FTP drivers (~1.0).",
+                "league/flysystem-aws-s3-v3": "Required to use the Flysystem S3 driver (~1.0).",
+                "league/flysystem-rackspace": "Required to use the Flysystem Rackspace driver (~1.0)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Filesystem\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Filesystem package.",
+            "homepage": "https://laravel.com",
+            "time": "2018-02-07T00:04:16+00:00"
+        },
+        {
             "name": "illuminate/support",
             "version": "v5.6.3",
             "source": {
@@ -382,6 +432,54 @@
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
             "time": "2018-02-04T20:30:42+00:00"
+        },
+        {
+            "name": "illuminate/view",
+            "version": "v5.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/view.git",
+                "reference": "65489f31d94931f6ab78ca15e53907acbe590e70"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/illuminate/view/65489f31d94931f6ab78ca15e53907acbe590e70.zip",
+                "reference": "65489f31d94931f6ab78ca15e53907acbe590e70",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "5.6.*",
+                "illuminate/contracts": "5.6.*",
+                "illuminate/events": "5.6.*",
+                "illuminate/filesystem": "5.6.*",
+                "illuminate/support": "5.6.*",
+                "php": "^7.1.3",
+                "symfony/debug": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\View\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate View package.",
+            "homepage": "https://laravel.com",
+            "time": "2018-01-29T17:29:10+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -556,6 +654,47 @@
                 "routing"
             ],
             "time": "2017-01-19T11:35:12+00:00"
+        },
+        {
+            "name": "philo/laravel-blade",
+            "version": "v3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhiloNL/Laravel-Blade.git",
+                "reference": "3f0ce2ee198604c53c25188110e6d7b5e887527a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/PhiloNL/Laravel-Blade/3f0ce2ee198604c53c25188110e6d7b5e887527a.zip",
+                "reference": "3f0ce2ee198604c53c25188110e6d7b5e887527a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/events": "~5",
+                "illuminate/view": "~5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Philo\\Blade\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philo Hermans",
+                    "email": "me@philohermans.com"
+                }
+            ],
+            "description": "Use the simple and yet powerful Laravel Blade templating engine as a standalone component.",
+            "keywords": [
+                "blade",
+                "laravel"
+            ],
+            "time": "2015-12-04T09:42:42+00:00"
         },
         {
             "name": "psr/cache",

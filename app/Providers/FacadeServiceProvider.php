@@ -29,5 +29,6 @@ class FacadeServiceProvider extends \Universe\Providers\FacadeServiceProvider
         'Log'=>LoggerFacade::class,
         'Event'=>EventFacade::class,
         'Cache'=>CacheFacade::class,
+        'Config'=>CacheFacade::class,
     ];
 }

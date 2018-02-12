@@ -7,6 +7,8 @@
  */
 
 
+use Universe\App;
+
 if (!function_exists('env')) {
     /**
      * @param      $key
@@ -57,6 +59,32 @@ if (! function_exists('database_path')) {
     }
 }
 
+if (! function_exists('storage_path')) {
+    /**
+     * Get the storage path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function storage_path($path = '')
+    {
+        return \Universe\App::getPath('/storage').$path;
+    }
+}
+
+if (! function_exists('root_path')) {
+    /**
+     * Get the storage path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    function root_path($path = '')
+    {
+        return \Universe\App::getPath().$path;
+    }
+}
+
 /**
  * 判断时候调试模式
  *
@@ -69,4 +97,9 @@ function is_debug()
         define('IS_DEBUG',\Universe\App::getDi()->get('config')->get('debug',false));
     }
     return IS_DEBUG;
+}
+
+function view($file)
+{
+    return App::get('view')->make($file);
 }
