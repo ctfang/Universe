@@ -18,7 +18,7 @@ class ViewServerProvider extends AbstractServiceProvider
     public function register()
     {
         $this->di->set($this->serviceName,function (){
-            $views = root_path('/resources/views');
+            $views = root_path('/public/views');
             $cache = storage_path('/framework/views');
 
             $blade = new Blade($views, $cache);
