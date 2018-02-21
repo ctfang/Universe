@@ -19,6 +19,7 @@ $app->initializeServices([
     \Universe\Providers\DatabaseServerProvider::class,
     \Universe\Providers\CacheServerProvider::class,
     \Universe\Providers\ViewServerProvider::class,
+    \Universe\Providers\SessionServerProvider::class,
 
     \App\Providers\FacadeServiceProvider::class,
     \App\Providers\EventServiceProvider::class,
