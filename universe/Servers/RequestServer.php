@@ -176,7 +176,7 @@ class RequestServer extends Request
     /**
      * 获取当前请求session对象
      *
-     * @return bool|string
+     * @return Store
      * @author 明月有色 <2206582181@qq.com>
      */
     public function getSession()
@@ -198,5 +198,12 @@ class RequestServer extends Request
             $this->session->start();
         }
         return $this->session;
+    }
+
+    public function __destruct()
+    {
+       if( $this->session ){
+           $this->session->save();
+       }
     }
 }

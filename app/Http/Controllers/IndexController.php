@@ -16,12 +16,17 @@ class IndexController extends Controller
      */
     public function index()
     {
-        //$session = $this->request->getSession();
+        $session = $this->request->getSession();
 
-        dump("OKOKOKO");
+        dump($session);
+        $session->put('test',date('H:i:s'));
 
+        $data = $session->get('test');
 
-        //$this->response->end($session->get('test'));
+        return $data;
+
+        //$this->response->end($data);
+
         //return view('welcome')->render();
     }
 

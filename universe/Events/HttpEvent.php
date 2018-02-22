@@ -36,14 +36,13 @@ class HttpEvent
 
         $disResponse = App::getShared('dispatcher')->handle($request, $response);
 
-        if( ob_get_status() && $contents = ob_get_clean() ){
+        if( ob_get_level() > 0 && $contents = ob_get_clean() ){
             while (ob_get_level() > 0) {
                 $contents .= ob_get_clean();
             }
-            $response->end($contents);
-        }
-        if( $disResponse instanceof ResponseServer){
-            return $disResponse;
+            $response->end($contents.$disResponse??'');
+        }elseif($disResponse){
+            $response->end($disResponse);
         }
     }
 

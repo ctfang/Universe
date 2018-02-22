@@ -118,10 +118,8 @@ class DispatcherServer
         $data     = $pipeline($request);
         if ($data instanceof RequestServer) {
             return $this->handle($request,$response);
-        }elseif ($data instanceof ResponseServer){
+        }else{
             return $data;
-        }elseif($data){
-            $response->end($data);
         }
     }
 

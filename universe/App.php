@@ -71,6 +71,7 @@ class App
      *
      * @param $serverName
      * @author 明月有色 <2206582181@qq.com>
+     * @return mixed
      */
     public static function get($serverName)
     {
@@ -94,20 +95,7 @@ class App
      */
     public function start()
     {
-        /**
-         * 启动端口监听服务
-         * PHP_RUN_TYPE 在cli分类上再区分运行类别
-         */
-        if (PHP_RUN_TYPE == 'swoole') {
-            $server = self::$di->getShared('server');
-            $server->start();
-        } else {
-            // fpm and 调试模式
-            $request     = App::getShared('request');
-            $response    = App::getShared('response');
-            $request->set(new Request());
-            $response->set(new Response());
-            self::$di->get('dispatcher')->handle($request, $response);
-        }
+        $server = self::$di->getShared('server');
+        $server->start();
     }
 }

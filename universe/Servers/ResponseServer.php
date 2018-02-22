@@ -29,14 +29,11 @@ class ResponseServer extends Response
      */
     public function end($html = '')
     {
-        if (is_array($html)) {
-            $this->header('Content-Type', 'application/json; charset=UTF-8');
-            $html = json_encode($html, JSON_UNESCAPED_UNICODE);
-        } elseif (is_object($html)) {
-            $this->header('Content-Type', 'application/json; charset=UTF-8');
-            $html = json_encode($html, JSON_UNESCAPED_UNICODE);
-        } elseif ( is_string($html) ) {
+        if ( is_string($html) ) {
             $this->header('Content-Type', 'text/html; charset=UTF-8');
+        }else{
+            $this->header('Content-Type', 'application/json; charset=UTF-8');
+            $html = json_encode($html, JSON_UNESCAPED_UNICODE);
         }
 
         $this->request->response->end($html);
