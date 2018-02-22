@@ -200,6 +200,9 @@ class RequestServer extends Request
         return $this->session;
     }
 
+    /**
+     * 保存session
+     */
     public function __destruct()
     {
        if( $this->session ){
