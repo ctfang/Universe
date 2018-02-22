@@ -16,18 +16,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $session = $this->request->getSession();
-
-        dump($session);
-        $session->put('test',date('H:i:s'));
-
-        $data = $session->get('test');
-
-        return $data;
-
-        //$this->response->end($data);
-
-        //return view('welcome')->render();
+        return view('welcome')->render();
     }
 
     /**

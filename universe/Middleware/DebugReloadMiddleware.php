@@ -24,9 +24,10 @@ class DebugReloadMiddleware extends Middleware
     public function handle(RequestServer $request, $next)
     {
         $next = $next($request);
-        if( is_debug() && App::get('config')->get('server.http.set.daemonize') ){
+        $server = App::getShared('server');
+        if (is_debug() && $server->setting['daemonize']) {
             // 调试模式，并且是守护模式
-            App::get('server')->reload();
+            $server->reload();
         }
         return $next;
     }
