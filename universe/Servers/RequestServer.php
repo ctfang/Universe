@@ -103,7 +103,9 @@ class RequestServer extends Request
     public function post($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
     {
         if (!isset($this->request->post[$name])) {
-            if ($noRecursive == true) {
+            if (!$name) {
+                return $this->request->get;
+            } elseif ($noRecursive == true) {
                 throw new NoRecursiveException($name . ':不能缺少');
             }
             return $defaultValue;
