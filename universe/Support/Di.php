@@ -12,31 +12,52 @@ namespace Universe\Support;
 class Di
 {
     private $di;
+    private $servers;
 
+    /**
+     * 加入
+     *
+     * @param $name
+     * @param $definition
+     */
     public function set($name, $definition)
     {
         $this->di[$name] = $definition;
     }
 
+    /**
+     * 移除
+     *
+     * @param $name
+     */
     public function remove($name)
     {
-        unset($this->di[$name]);
+        unset($this->servers[$name]);
     }
 
+    /**
+     * 新建
+     *
+     * @param $name
+     * @return mixed
+     */
     public function get($name)
     {
-        if( $this->di[$name] instanceof \Closure){
-            $this->di[$name] = $this->di[$name]();
-        }
-        return $this->di[$name];
+        return $this->di[$name]();
     }
 
+    /**
+     * 获取共享的对象
+     *
+     * @param $name
+     * @return mixed
+     */
     public function &getShared($name)
     {
-        if( $this->di[$name] instanceof \Closure){
-            $this->di[$name] = $this->di[$name]();
+        if( !isset($this->servers[$name]) ){
+            $this->servers[$name] = $this->di[$name]();
         }
-        return $this->di[$name];
+        return $this->servers[$name];
     }
 
     /**
@@ -47,6 +68,6 @@ class Di
      */
     public function has($name)
     {
-        return isset($this->di[$name]);
+        return isset($this->servers[$name]);
     }
 }

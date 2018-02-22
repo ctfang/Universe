@@ -28,12 +28,13 @@ class HttpEvent
     {
         ob_start();
 
-        $request     = App::getShared('request');
-        $response    = App::getShared('response');
-        $request->set($sRequest);
-        $response->set($sResponse);
+        $request     = App::get('request');
+        $response    = App::get('response');
 
-        $disResponse = App::get('dispatcher')->handle($request, $response);
+        $request->set($sRequest,$sResponse);
+        $response->set($request);
+
+        $disResponse = App::getShared('dispatcher')->handle($request, $response);
 
         if( ob_get_status() && $contents = ob_get_clean() ){
             while (ob_get_level() > 0) {
@@ -83,7 +84,7 @@ class HttpEvent
          * 注册异常捕捉
          * 注册之前的报出的异常不能被捕捉
          */
-        App::get('exception')->register();
+        App::getShared('exception')->register();
     }
 
     /**

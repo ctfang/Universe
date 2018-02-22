@@ -9,36 +9,49 @@
 namespace Universe\Servers;
 
 
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Session\FileSessionHandler;
+use Illuminate\Session\Store;
 use Swoole\Http\Request;
+use Swoole\Http\Response;
+use Universe\App;
 use Universe\Exceptions\NoRecursiveException;
 
 class RequestServer extends Request
 {
     private $filters;
+
+    /**
+     * @var Request
+     */
     private $system;
+    private $session=false;
+
+    /**
+     * @var Response
+     */
+    public  $response;
+
+    /**
+     * 过滤函数初始化
+     */
+    public function __construct()
+    {
+        foreach (filter_list() as $value) {
+            $this->filters[$value] = filter_id($value);
+        }
+    }
 
     /**
      * 初始化，对命令行和fpm模式下兼容运行
      *
      * @param Request $request
+     * @param Response $response
      */
-    public function set(Request $request)
+    public function set(Request $request, Response $response)
     {
         $this->system = $request;
-        foreach (filter_list() as $value){
-            $this->filters[$value] = filter_id($value);
-        }
-        if (PHP_RUN_TYPE === 'php-fpm') {
-            $this->get  = $_GET;
-            $this->post = $_POST;
-            foreach ($_SERVER as $key => $value) {
-                $this->server[strtolower($key)] = $value;
-            }
-        } else {
-            $this->get    = $request->get;
-            $this->post   = $request->get;
-            $this->server = $request->server;
-        }
+        $this->response = $response;
     }
 
     /**
@@ -55,22 +68,22 @@ class RequestServer extends Request
      */
     public function get($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
     {
-        if( !isset($this->get[$name]) ){
-            if( !$name ){
-                return $this->get;
-            }elseif( $noRecursive==true ){
-                throw new NoRecursiveException($name.':不能缺少');
+        if (!isset($this->system->get[$name])) {
+            if (!$name) {
+                return $this->system->get;
+            } elseif ($noRecursive == true) {
+                throw new NoRecursiveException($name . ':不能缺少');
             }
             return $defaultValue;
-        }elseif ( !$this->get[$name] ){
-            if( $notAllowEmpty==true ){
-                throw new NoRecursiveException($name.':不能为空 ');
+        } elseif (!$this->system->get[$name]) {
+            if ($notAllowEmpty == true) {
+                throw new NoRecursiveException($name . ':不能为空 ');
             }
             return $defaultValue;
         }
-        $value = $this->get[$name];
-        if( $filters ){
-            $value = filter_var($value,$this->getFilterId($filters));
+        $value = $this->system->get[$name];
+        if ($filters) {
+            $value = filter_var($value, $this->getFilterId($filters));
         }
         return $value;
     }
@@ -89,20 +102,20 @@ class RequestServer extends Request
      */
     public function post($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
     {
-        if( !isset($this->post[$name]) ){
-            if( $noRecursive==true ){
-                throw new NoRecursiveException($name.':不能缺少');
+        if (!isset($this->system->post[$name])) {
+            if ($noRecursive == true) {
+                throw new NoRecursiveException($name . ':不能缺少');
             }
             return $defaultValue;
-        }elseif ( !$this->post[$name] ){
-            if( $notAllowEmpty==true ){
-                throw new NoRecursiveException($name.':不能为空 ');
+        } elseif (!$this->system->post[$name]) {
+            if ($notAllowEmpty == true) {
+                throw new NoRecursiveException($name . ':不能为空 ');
             }
             return $defaultValue;
         }
-        $value = $this->post[$name];
-        if( $filters ){
-            $value = filter_var($value,$this->getFilterId($filters));
+        $value = $this->system->post[$name];
+        if ($filters) {
+            $value = filter_var($value, $this->getFilterId($filters));
         }
         return $value;
     }
@@ -117,9 +130,9 @@ class RequestServer extends Request
     public function setUri($uri, $method = null)
     {
         if ($method) {
-            $this->server['request_method'] = $method;
+            $this->system->server['request_method'] = $method;
         }
-        $this->server['request_uri'] = $uri;
+        $this->system->server['request_uri'] = $uri;
     }
 
     /**
@@ -130,7 +143,7 @@ class RequestServer extends Request
      */
     public function getUri()
     {
-        return $this->server['request_uri'];
+        return $this->system->server['request_uri'];
     }
 
     /**
@@ -141,7 +154,7 @@ class RequestServer extends Request
      */
     public function getMethod()
     {
-        return $this->server['request_method'];
+        return $this->system->server['request_method'];
     }
 
     /**
@@ -154,9 +167,37 @@ class RequestServer extends Request
      */
     private function getFilterId($filters)
     {
-        if( !isset($this->filters[$filters]) ){
+        if (!isset($this->filters[$filters])) {
             throw new \Exception('过滤函数使用错误,filter_list函数查看');
         }
         return $this->filters[$filters];
+    }
+
+    /**
+     * 获取当前请求对象
+     *
+     * @return bool|string
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function getSession()
+    {
+        if( $this->session===false ){
+            $session_name = "SWOOLE_SESSION";
+            $session_path = storage_path('/framework/sessions');
+            $session_minutes = 3600;
+
+            if( isset($this->system->cookie[$session_name]) ){
+                $handler = new FileSessionHandler(new Filesystem(),$session_path,$session_minutes);
+                $sessionStore = new Store($session_name,$handler,$this->system->cookie[$session_name]);
+            }else{
+                $handler = new FileSessionHandler(new Filesystem(),$session_path,$session_minutes);
+                $sessionStore = new Store($session_name,$handler);
+                $this->response->cookie($session_name,$sessionStore->getId());
+            }
+
+            $this->session = $sessionStore;
+            $this->session->start();
+        }
+        return $this->session;
     }
 }

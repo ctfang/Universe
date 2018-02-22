@@ -69,9 +69,9 @@ class DispatcherServer
                     break;
             }
         } catch (\Exception $exception) {
-            App::get('exception')->handleException($exception);
+            App::getShared('exception')->handleException($exception);
         }catch (\Error $exception){
-            App::get('exception')->handleException($exception);
+            App::getShared('exception')->handleException($exception);
         }
     }
 
@@ -121,7 +121,7 @@ class DispatcherServer
         }elseif ($data instanceof ResponseServer){
             return $data;
         }elseif($data){
-            App::getShared('response')->end($data);
+            $response->end($data);
         }
     }
 

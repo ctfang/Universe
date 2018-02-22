@@ -14,13 +14,13 @@ use Swoole\Http\Response;
 class ResponseServer extends Response
 {
     /**
-     * @var Response
+     * @var RequestServer
      */
-    protected $server;
+    protected $request;
 
-    public function set(Response $response)
+    public function set(RequestServer $request)
     {
-        $this->server = $response;
+        $this->request = $request;
     }
 
     /**
@@ -39,11 +39,7 @@ class ResponseServer extends Response
             $this->header('Content-Type', 'text/html; charset=UTF-8');
         }
 
-        if (PHP_RUN_TYPE === 'php-fpm') {
-            echo $html;
-        } else {
-            $this->server->end($html);
-        }
+        $this->request->response->end($html);
     }
 
     /**
@@ -54,11 +50,7 @@ class ResponseServer extends Response
      */
     public function header($key, $value, $ucwords = null)
     {
-        if (PHP_RUN_TYPE === 'php-fpm') {
-            @header($key . ': ' . $value);
-        } else {
-            $this->server->header($key, $value, $ucwords);
-        }
+        $this->request->response->header($key, $value, $ucwords);
     }
 
     /**
@@ -73,7 +65,7 @@ class ResponseServer extends Response
      */
     public function cookie($name, $value = NULL, $expires = NULL, $path = NULL, $domain = NULL, $secure = NULL, $httponly = NULL)
     {
-        $this->server->cookie($name, $value, $expires, $path, $domain, $secure, $httponly);
+        $this->request->response->cookie($name, $value, $expires, $path, $domain, $secure, $httponly);
     }
 
 
@@ -85,10 +77,6 @@ class ResponseServer extends Response
      */
     public function status($code)
     {
-        if (PHP_RUN_TYPE === 'php-fpm') {
-            @http_response_code($code);
-        } else {
-            $this->server->status($code);
-        }
+        $this->request->response->status($code);
     }
 }
