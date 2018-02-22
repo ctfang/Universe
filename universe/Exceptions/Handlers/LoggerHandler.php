@@ -20,7 +20,7 @@ class LoggerHandler extends Handler
      */
     public function getLogger()
     {
-        return App::getDi()->get('logger');
+        return App::get('logger');
     }
 
     /**
@@ -31,7 +31,7 @@ class LoggerHandler extends Handler
         $exception   = $this->getException();
         $errorCode   = $exception->getCode();
         $logger      = $this->getLogger();
-        $request     = App::getShared('request');
+        $request     = $exception->request;
         $errorString = $exception->getMessage() . " : uri={$request->getUri()}\n[stacktrace]\n" . $exception->getTraceAsString();
         switch ($errorCode) {
             case E_WARNING:

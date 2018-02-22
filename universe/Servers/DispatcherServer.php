@@ -69,10 +69,25 @@ class DispatcherServer
                     break;
             }
         } catch (\Exception $exception) {
-            App::getShared('exception')->handleException($exception);
+            $this->handleException($request,$response,$exception);
         }catch (\Error $exception){
-            App::getShared('exception')->handleException($exception);
+            $this->handleException($request,$response,$exception);
         }
+    }
+
+    /**
+     * 异常处理
+     *
+     * @param $request
+     * @param $response
+     * @param $exception
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    private function handleException($request,$response,$exception)
+    {
+        $exception->request  = $request;
+        $exception->response = $response;
+        App::getShared('exception')->handleException($exception);
     }
 
     /**
