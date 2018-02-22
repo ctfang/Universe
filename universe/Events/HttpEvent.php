@@ -43,6 +43,8 @@ class HttpEvent
             $response->end($contents.$disResponse??'');
         }elseif($disResponse){
             $response->end($disResponse);
+        }else{
+            return $request->request;
         }
     }
 

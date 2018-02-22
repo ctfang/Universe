@@ -23,9 +23,15 @@ abstract class Controller
      */
     protected $response;
 
-    public function __construct(RequestServer $request, ResponseServer $response)
+    public function __construct(RequestServer &$request, ResponseServer &$response)
     {
         $this->request  = $request;
         $this->response = $response;
+    }
+
+    public function redirect($url)
+    {
+        $this->response->header("Location",$url);
+        $this->response->status(302);
     }
 }
