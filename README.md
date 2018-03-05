@@ -7,9 +7,10 @@
 
 ## About Universe
 
+2.0.* 版本已经抛弃fpm模式运行，调试模式可以自动reload，实现代码实时生效
+
 > **Note:** Universe的目标是所有注册进di的服务都由第三方开发，让更多的人参与开发
 
-作为API系统，已经生产可用
 
 ## 已经实现的功能列表
 
@@ -30,16 +31,53 @@ composer install
 ~~~~php
 // 守护模式，调试下支持代码更改实时生效
 php server start
-// 调试模式
+// 非守护模式
 php server start --daemonize=0
 // 重启服务
 php server reload
 php server stop
 ~~~~
 启动时，会输出域名端口基本信息
+~~~~
+ ----------------- -------------------------------------------------------
+  配置key           值
+ ----------------- -------------------------------------------------------
+  监听域名          0.0.0.0
+  监听端口          8081
+  log_file          /data/webpages/swoole-demo/storage/swoole.log
+  pid_file          /data/webpages/swoole-demo/bootstrap/cache/server.pid
+  log_level         5
+  worker_num        4
+  task_worker_num   0
+  守护模式          是
+ ----------------- -------------------------------------------------------
 
-- swoole模式：进入项目目录运行 php server start（修改代码支持即时生效）
-- fpm模式   ：   配置nginx到项目/public目录，
+~~~~
+
+如果需要访问静态资源，html、css、js等；可以配置nginx服务器，配置模板
+bootstrap\swoole.app.conf
+~~~~
+server {
+    listen       80;
+    server_name  demo.app;
+
+    root /data/webpages/swoole-demo/public;
+
+    index index.html;
+
+    location / {
+        try_files $uri @swoole;
+    }
+
+    location @swoole {
+        proxy_http_version 1.1;
+        proxy_set_header Connection "keep-alive";
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://php:8081;
+    }
+}
+~~~~
+
     
 </details>
 
