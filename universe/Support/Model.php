@@ -17,7 +17,11 @@ namespace Universe\Support;
  * @method \Illuminate\Database\Eloquent\Builder whereKey($id) static
  * @method \Illuminate\Database\Eloquent\Builder whereKeyNot($id) static
  * @method \Illuminate\Database\Eloquent\Builder where($column,$operator=NULL,$value=NULL,$boolean='and') static
- * @method \Illuminate\Database\Eloquent\Builder|static orWhere($column,$operator=NULL,$value=NULL) static
+ * @method \Illuminate\Database\Eloquent\Builder forPage($page, $perPage) static
+ * @method \Illuminate\Database\Eloquent\Builder orWhere($column,$operator=NULL,$value=NULL) static
+ * @method \Illuminate\Database\Eloquent\Builder orderBy($column, $direction = 'asc') static
+ * @method \Illuminate\Database\Eloquent\Builder leftJoin($table, $first, $operator = null, $second = null) static
+ * @method \Illuminate\Database\Eloquent\Builder rightJoin($table, $first, $operator = null, $second = null) static
  * @method \Illuminate\Database\Eloquent\Collection hydrate(array $items)
  * @method \Illuminate\Database\Eloquent\Collection fromQuery($query,$bindings=array())
  * @method \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null find($id,$columns=array(0=>'*',)) static
@@ -36,7 +40,7 @@ namespace Universe\Support;
  * @method \Generator cursor()
  * @method bool chunkById($count,callable $callback,$column=NULL,$alias=NULL)
  * @method \Illuminate\Support\Collection pluck($column,$key=NULL)
- * @method \Illuminate\Contracts\Pagination\LengthAwarePaginator paginate($perPage=NULL,$columns=array(0=>'*',),$pageName='page',$page=NULL)
+ * @method \Illuminate\Contracts\Pagination\LengthAwarePaginator paginate($perPage=NULL,$columns=array(0=>'*',),$pageName='page',$page=NULL) static
  * @method \Illuminate\Contracts\Pagination\Paginator simplePaginate($perPage=NULL,$columns=array(0=>'*',),$pageName='page',$page=NULL)
  * @method \Illuminate\Database\Eloquent\Model|$this create(array $attributes=array())
  * @method \Illuminate\Database\Eloquent\Model|$this forceCreate(array $attributes)

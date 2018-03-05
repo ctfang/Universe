@@ -17,9 +17,15 @@ class LoginMiddleware extends Middleware
     /**
      * @param RequestServer $request
      * @param $next
+     * @return RequestServer
      */
     public function handle(RequestServer $request, $next)
     {
+        if(!$request->getSession()->get('isLogin',false)){
+            // 没有登录
+            $request->setUri('/login');
+            return $request;
+        }
         return $next($request);
     }
 }

@@ -75,7 +75,7 @@ class RequestServer extends Request
                 throw new NoRecursiveException($name . ':不能缺少');
             }
             return $defaultValue;
-        } elseif (!$this->request->get[$name]) {
+        } elseif ($this->request->get[$name]=='') {
             if ($notAllowEmpty == true) {
                 throw new NoRecursiveException($name . ':不能为空 ');
             }
@@ -104,12 +104,12 @@ class RequestServer extends Request
     {
         if (!isset($this->request->post[$name])) {
             if (!$name) {
-                return $this->request->get;
+                return $this->request->post;
             } elseif ($noRecursive == true) {
                 throw new NoRecursiveException($name . ':不能缺少');
             }
             return $defaultValue;
-        } elseif (!$this->request->post[$name]) {
+        } elseif ($this->request->post[$name]=='') {
             if ($notAllowEmpty == true) {
                 throw new NoRecursiveException($name . ':不能为空 ');
             }

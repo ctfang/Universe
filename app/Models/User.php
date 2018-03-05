@@ -13,5 +13,10 @@ use Universe\Support\Model;
 
 class User extends Model
 {
-    protected $table = 'user';
+    protected $table = 'users';
+
+    public function password($password)
+    {
+        return md5(base64_encode($password));
+    }
 }

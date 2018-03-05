@@ -33,5 +33,7 @@ abstract class Controller
     {
         $this->response->header("Location",$url);
         $this->response->status(302);
+        $this->response->end('');
+        return true;
     }
 }
