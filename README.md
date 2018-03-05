@@ -1,8 +1,8 @@
 这是一个基于swoole扩展的php框架，调试模式下代码跟普通php-fpm模式一样，是实时生效的；框架部分大量参考了phalcon和laravel代码的实现，例如框架骨架使用了DI服务，所有框架先注册进入DI树，注册完后才使用，这样可以更好的扩展框架功能，哪怕是覆盖框架核心服务都行。因为universe是常住内存运行的，所以DI服务都是一次注册多次使用。
 
 <p align="">
-<a href="https://packagist.org/packages/selden1992/Universe"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/selden1992/Universe"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+<a href="https://packagist.org/packages/ctfang/Universe"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/ctfang/Universe"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
 ## About Universe
