@@ -25,11 +25,6 @@ class ExceptionServerProvider extends AbstractServiceProvider
 
             (new Kernel($run))->register();
 
-            // 所有错误日记记录
-            $PlainTextHandler = new PlainTextHandler();
-            $PlainTextHandler->setLogger(App::get('logger'));
-            $PlainTextHandler->loggerOnly(true);
-            $run->pushHandler($PlainTextHandler);
             return $run;
         });
     }

@@ -8,44 +8,30 @@
 
 namespace Universe\Exceptions\Handlers;
 
-use Monolog\Logger;
+
 use Universe\App;
-use Whoops\Handler\Handler;
+use Universe\Servers\RequestServer;
+use Whoops\Handler\PlainTextHandler;
 
-class LoggerHandler extends Handler
+class LoggerHandler extends PlainTextHandler
 {
-    /**
-     * @return Logger
-     * @author 明月有色 <2206582181@qq.com>
-     */
-    public function getLogger()
-    {
-        return App::get('logger');
-    }
-
     /**
      * @return int|null A handler may return nothing, or a Kernel::HANDLE_* constant
      */
     public function handle()
     {
-        $exception   = $this->getException();
-        $errorCode   = $exception->getCode();
-        $logger      = $this->getLogger();
-        $request     = $exception->request;
-        $errorString = $exception->getMessage() . " : uri={$request->getUri()}\n[stacktrace]\n" . $exception->getTraceAsString();
-        switch ($errorCode) {
-            case E_WARNING:
-                $logger->warning($errorString);
-                break;
-            case E_NOTICE:
-                $logger->notice($errorString);
-                break;
-            case E_ERROR:
-                $logger->error($errorString);
-                break;
-            default :
-                $logger->error($errorString);
-                break;
-        }
+        $response = $this->generateResponse();
+
+        App::get('logger')->error("uri:".$this->getRequest()->getUri().PHP_EOL.$response);
+    }
+
+
+    /**
+     * @return RequestServer
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function getRequest()
+    {
+        return $this->getException()->request;
     }
 }

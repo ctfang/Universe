@@ -26,7 +26,6 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         DebugDumpMiddleware::class,// 调试的辅助，dump函数输出重定向
-        DebugReloadMiddleware::class,// 每次重启服务
         DatabaseMiddleware::class,// 数据库链接管理，载入配置
     ];
 

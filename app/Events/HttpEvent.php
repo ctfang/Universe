@@ -8,6 +8,7 @@
 
 namespace App\Events;
 
+use Universe\App;
 use \Universe\Events\HttpEvent as Event;
 
 class HttpEvent extends Event
@@ -25,4 +26,18 @@ class HttpEvent extends Event
      * 'onTask'=>'Task',
      * 'onFinish'=>'Finish',
      */
+
+    /**
+     * 请求结束执行
+     *
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function endRequest()
+    {
+        $server = App::getShared('server');
+        if (is_debug() && $server->setting['daemonize']) {
+            // 调试模式，并且是守护模式
+            $server->reload();
+        }
+    }
 }

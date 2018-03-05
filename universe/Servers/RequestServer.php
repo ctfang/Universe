@@ -50,7 +50,7 @@ class RequestServer extends Request
      */
     public function set(Request $request, Response $response)
     {
-        $this->request = $request;
+        $this->request  = $request;
         $this->response = $response;
     }
 
@@ -70,12 +70,12 @@ class RequestServer extends Request
     {
         if (!isset($this->request->get[$name])) {
             if (!$name) {
-                return $this->request->get;
-            } elseif ($noRecursive == true) {
+                return $this->request->get??[];
+            } elseif ($noRecursive == true || $notAllowEmpty == true) {
                 throw new NoRecursiveException($name . ':不能缺少');
             }
             return $defaultValue;
-        } elseif ($this->request->get[$name]=='') {
+        } elseif ($this->request->get[$name] == '') {
             if ($notAllowEmpty == true) {
                 throw new NoRecursiveException($name . ':不能为空 ');
             }
@@ -104,12 +104,12 @@ class RequestServer extends Request
     {
         if (!isset($this->request->post[$name])) {
             if (!$name) {
-                return $this->request->post;
-            } elseif ($noRecursive == true) {
+                return $this->request->post??[];
+            } elseif ($noRecursive == true || $notAllowEmpty == true) {
                 throw new NoRecursiveException($name . ':不能缺少');
             }
             return $defaultValue;
-        } elseif ($this->request->post[$name]=='') {
+        } elseif ($this->request->post[$name] == '') {
             if ($notAllowEmpty == true) {
                 throw new NoRecursiveException($name . ':不能为空 ');
             }
@@ -184,15 +184,15 @@ class RequestServer extends Request
     public function getSession()
     {
         if ($this->session === false) {
-            $session_name = "SWOOLE_SESSION";
-            $session_path = storage_path('/framework/sessions');
+            $session_name    = "SWOOLE_SESSION";
+            $session_path    = storage_path('/framework/sessions');
             $session_minutes = 3600;
 
-            $session_id = $this->request->cookie[$session_name] ?? null;
-            $handler = new FileSessionHandler(new Filesystem(), $session_path, $session_minutes);
+            $session_id   = $this->request->cookie[$session_name] ?? null;
+            $handler      = new FileSessionHandler(new Filesystem(), $session_path, $session_minutes);
             $sessionStore = new Store($session_name, $handler, $session_id);
 
-            if ( $session_id==null ) {
+            if ($session_id == null) {
                 $this->response->cookie($session_name, $sessionStore->getId());
             }
 
@@ -207,8 +207,8 @@ class RequestServer extends Request
      */
     public function __destruct()
     {
-       if( $this->session ){
-           $this->session->save();
-       }
+        if ($this->session) {
+            $this->session->save();
+        }
     }
 }
