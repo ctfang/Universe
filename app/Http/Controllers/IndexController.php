@@ -20,16 +20,6 @@ class IndexController extends Controller
     }
 
     /**
-     * 浏览器图标请求
-     *
-     * @author 明月有色 <2206582181@qq.com>
-     */
-    public function favicon()
-    {
-        $this->response->end("OK");
-    }
-
-    /**
      * 字符串输出
      *
      * @return string
