@@ -41,11 +41,8 @@ class HttpEvent
                 $contents .= ob_get_clean();
             }
             $response->end($contents.$disResponse??'');
-        }elseif($disResponse){
+        }elseif($disResponse!==null){
             $response->end($disResponse);
-        }else{
-            $this->endRequest();
-            return $request->response;
         }
         $this->endRequest();
     }
