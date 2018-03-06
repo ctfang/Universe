@@ -19,4 +19,13 @@ class TestController extends Controller
     {
         dump("test");
     }
+
+    /**
+     * @get('/test/get')
+     * @author 明月有色 <2206582181@qq.com>
+     */
+    public function test()
+    {
+        dump($this);
+    }
 }

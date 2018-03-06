@@ -26,6 +26,6 @@ Route::get('/index/json', 'IndexController@getJson');
 
 
 /**
- * 注解路由
+ * 注解路由,解析控制器本身的注释
  */
 Route::annotation(\App\Http\Controllers\TestController::class);
