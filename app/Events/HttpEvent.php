@@ -37,7 +37,13 @@ class HttpEvent extends Event
         $server = App::getShared('server');
         if (is_debug() && $server->setting['daemonize']) {
             // 调试模式，并且是守护模式
-            $server->reload();
+            $serverFile = root_path('/server');
+            try{
+                exec("php {$serverFile} reload &");
+                // $server->reload();
+            }catch (\Exception $exception){
+                // 忽略
+            }
         }
     }
 }

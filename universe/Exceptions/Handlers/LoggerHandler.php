@@ -22,16 +22,27 @@ class LoggerHandler extends PlainTextHandler
     {
         $response = $this->generateResponse();
 
-        App::get('logger')->error("uri:".$this->getRequest()->getUri().PHP_EOL.$response);
+        if( $this->getRequest() ){
+            App::get('logger')->error("uri:".$this->getRequest()->getUri().PHP_EOL.$response);
+        }else{
+            // 非界面，没有uri
+            App::get('logger')->error($response);
+        }
     }
 
 
     /**
-     * @return RequestServer
+     * @return RequestServer|bool
      * @author 明月有色 <2206582181@qq.com>
      */
     public function getRequest()
     {
-        return $this->getException()->request;
+        try{
+            return $this->getException()->request;
+        }catch (\Error $exception){
+            return false;
+        }catch (\Exception $exception){
+            return false;
+        }
     }
 }

@@ -10,11 +10,7 @@ namespace Universe;
 
 
 use Dotenv\Dotenv;
-use Swoole\Http\Request;
-use Swoole\Http\Response;
-use Universe\Servers\ResponseServer;
 use Universe\Support\Di;
-use Universe\Servers\RequestServer;
 
 class App
 {
@@ -55,7 +51,7 @@ class App
     }
 
     /**
-     * 初始化服务
+     * 注册服务提供者
      *
      * @param $arrConfig
      */

@@ -31,7 +31,7 @@ return [
                 'log_file' => dirname(__DIR__)."/storage/swoole.log",
                 'pid_file' => dirname(__DIR__) . '/bootstrap/cache/server.pid',
                 'log_level' => 5,
-                'worker_num' => 4,
+                'worker_num' => env('SERVER_WORKER_NUM',4),
                 'task_worker_num'=>0
             ],
         ],

@@ -10,6 +10,7 @@ namespace App\Exceptions;
 
 
 use App\Exceptions\Handlers\NotFoundHandler;
+use App\Exceptions\Handlers\ReturnJsonHandler;
 use Universe\Exceptions\Handlers\LoggerHandler;
 use Universe\Exceptions\Handlers\PrettyPageHandler;
 use Universe\Support\ExceptionKernel;
@@ -31,6 +32,9 @@ class Kernel extends ExceptionKernel
         if (is_debug()) {
             // 如果调试，把错误展示出来
             $this->server->pushHandler(new PrettyPageHandler());
+        }else{
+            // 线上模式，屏蔽错误，显示json
+            $this->server->pushHandler(new ReturnJsonHandler());
         }
 
         // 所有错误日记记录
