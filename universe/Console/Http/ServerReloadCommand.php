@@ -6,7 +6,7 @@
  * Time: 16:07
  */
 
-namespace Universe\Console;
+namespace Universe\Console\Http;
 
 
 use Symfony\Component\Console\Command\Command;
@@ -14,11 +14,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Universe\App;
 
-class ServerStopCommand extends Command
+class ServerReloadCommand extends Command
 {
     public function configure()
     {
-        $this->setName('stop')->setDescription('停止服务');
+        $this->setName('http:reload')->setDescription('重启服务');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -30,10 +30,10 @@ class ServerStopCommand extends Command
             exit(1);
         }
 
-        if( posix_kill($pid, SIGTERM) ){
-            $output->writeln("<info>停止成功{$pid}</info>");
+        if( posix_kill($pid, SIGUSR1) ){
+            $output->writeln("<info>重启成功{$pid}</info>");
         }else{
-            $output->writeln("<error>停止失败{$pid}</error>");
+            $output->writeln("<error>重启失败{$pid}</error>");
         }
     }
 }

@@ -89,9 +89,9 @@ class App
      *
      * @author 明月有色 <2206582181@qq.com>
      */
-    public function start()
+    public function start($serverName='httpServer')
     {
-        $server = self::$di->getShared('server');
+        $server = self::$di->getShared($serverName);
         $server->start();
     }
 }
