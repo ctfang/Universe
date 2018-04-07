@@ -202,6 +202,99 @@ class RequestServer extends Request
         return $this->session;
     }
 
+    public function cookie($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
+    {
+        if (!isset($this->request->cookie[$name])) {
+            if (!$name) {
+                return $this->request->cookie??[];
+            } elseif ($noRecursive == true || $notAllowEmpty == true) {
+                throw new NoRecursiveException($name . ':不能缺少');
+            }
+            return $defaultValue;
+        } elseif ($this->request->cookie[$name] == '') {
+            if ($notAllowEmpty == true) {
+                throw new NoRecursiveException($name . ':不能为空 ');
+            }
+            return $defaultValue;
+        }
+        $value = $this->request->cookie[$name];
+        if ($filters) {
+            $value = filter_var($value, $this->getFilterId($filters));
+        }
+        return $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function files()
+    {
+        $data = $this->request->files ?? [];
+
+        return $data;
+    }
+
+    /**
+     * 获取原始的POST包体,
+     * @return string
+     */
+    public function rawContent()
+    {
+        return $this->request->rawContent() ?? '';
+    }
+
+    /**
+     * 获取Http请求的头部信息
+     * @return mixed
+     */
+    public function header()
+    {
+        return $this->request->header;
+    }
+
+    /**
+     * 获取完整的原始Http请求报文。包括Http Header和Http Body。
+     * @return string
+     */
+    public function getData()
+    {
+        return $this->request->getData() ?? '';
+    }
+
+    /**
+     * 获取server参数
+     *
+     * @param null $name
+     * @param null $filters 过滤类型 php内置函数filter_list
+     * @param null $defaultValue 默认参数
+     * @param bool $notAllowEmpty 不能为空
+     * @param bool $noRecursive 必须传参
+     * @return mixed|null
+     * @throws NoRecursiveException
+     * @throws \Exception
+     */
+    public function server($name = null, $filters = null, $defaultValue = null, $notAllowEmpty = false, $noRecursive = false)
+    {
+        if (!isset($this->request->server[$name])) {
+            if (!$name) {
+                return $this->request->server??[];
+            } elseif ($noRecursive == true || $notAllowEmpty == true) {
+                throw new NoRecursiveException($name . ':不能缺少');
+            }
+            return $defaultValue;
+        } elseif ($this->request->server[$name] == '') {
+            if ($notAllowEmpty == true) {
+                throw new NoRecursiveException($name . ':不能为空 ');
+            }
+            return $defaultValue;
+        }
+        $value = $this->request->server[$name];
+        if ($filters) {
+            $value = filter_var($value, $this->getFilterId($filters));
+        }
+        return $value;
+    }
+
     /**
      * 保存session
      */
