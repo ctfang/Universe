@@ -19,5 +19,4 @@ class WebSocketEvent extends Event
      * 'onMessage'=>'Message',
      * 'onClose'=>'Close',
      */
-
 }

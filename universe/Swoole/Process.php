@@ -8,9 +8,6 @@
 
 namespace Universe\Swoole;
 
-/**
- * 进程助手类
- */
 class Process
 {
     /**

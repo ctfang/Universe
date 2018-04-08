@@ -29,6 +29,7 @@ class WebSocketServiceProvider extends AbstractServiceProvider
      * 'onClose'=>'Close',
      */
     protected $onList = [
+        'onRequest'=>'Request',
         'onStart'=>'Start',
         'onManagerStart'=>'ManagerStart',
         'onWorkerStart'=>'WorkerStart',

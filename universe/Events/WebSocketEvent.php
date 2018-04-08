@@ -12,13 +12,15 @@ class WebSocketEvent
 {
     private $callback;
 
-    // onStart 主进程启动事件
+    /**
+     * 主进程启动事件
+     * @param Server $server
+     */
     public function onStart(Server $server)
     {
         // 检查目录、注册集群等
     }
 
-    // onRequest
     public function onRequest(Request $sRequest, Response $sResponse)
     {
         ob_start();
@@ -28,6 +30,7 @@ class WebSocketEvent
 
         $request->set($sRequest,$sResponse);
         $response->set($request);
+
 
         $disResponse = App::getShared('dispatcher')->handle($request, $response);
 
@@ -42,7 +45,10 @@ class WebSocketEvent
         $this->endRequest();
     }
 
-    // onManagerStart 管理进程启动事件
+    /**
+     * 管理进程启动事件
+     * @param Server $server
+     */
     public function onManagerStart(Server $server)
     {
         // 进程命名
@@ -50,7 +56,11 @@ class WebSocketEvent
     }
 
 
-    // onWorkerStart 管理进程启动事件
+    /**
+     * 管理进程启动事件
+     * @param Server $server
+     * @param int $workerId
+     */
     public function onWorkerStart(Server $server, int $workerId)
     {
         // 进程命名
@@ -62,16 +72,21 @@ class WebSocketEvent
     }
 
 
-    // onOpen 客户端与服务器建立连接并完成握手后会回调此函数
+    /**
+     * 客户端与服务器建立连接并完成握手后会回调此函数
+     * @param Server $server
+     * @param Request $sRequest
+     */
     public function onOpen(Server $server, Request $sRequest)
     {
-//        echo "server: handshake success with fd{$sRequest->fd}\n";
-
-
 
     }
 
-    // onMessage 当服务器收到来自客户端的数据帧时会回调此函数
+    /**
+     * 当服务器收到来自客户端的数据帧时会回调此函数
+     * @param Server $server
+     * @param Frame $frame
+     */
     public function onMessage(Server $server, Frame $frame)
     {
         try {
@@ -86,7 +101,11 @@ class WebSocketEvent
 
     }
 
-    // onClose 链接关闭
+    /**
+     * 链接关闭
+     * @param Server $server
+     * @param int $fd
+     */
     public function onClose(Server $server, int $fd)
     {
         try {
@@ -105,6 +124,10 @@ class WebSocketEvent
 
     }
 
+    /**
+     * 设置回调函数
+     * @param $callback
+     */
     public function setCallback($callback)
     {
         $this->callback = $callback;
