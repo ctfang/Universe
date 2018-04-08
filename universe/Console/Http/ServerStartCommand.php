@@ -6,7 +6,7 @@
  * Time: 15:58
  */
 
-namespace Universe\Console;
+namespace Universe\Console\Http;
 
 
 use Swoole\Http\Server;
@@ -32,7 +32,7 @@ class ServerStartCommand extends Command
 
     public function configure()
     {
-        $this->setName('start')
+        $this->setName('http:start')
             ->addOption('daemonize', null, InputOption::VALUE_OPTIONAL, '守护进程启动', 1)
             ->setDescription('启动服务,默认调试模式启动');
 

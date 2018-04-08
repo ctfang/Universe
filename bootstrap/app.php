@@ -12,6 +12,7 @@ $app->initializeServices([
     \Universe\Providers\ConfigServerProvider::class,
     \Universe\Providers\LoggerServiceProvider::class,
     \Universe\Providers\HttpServiceProvider::class,
+    \Universe\Providers\WebSocketServiceProvider::class,
     \Universe\Providers\RequestServerProvider::class,
     \Universe\Providers\ResponseServerProvider::class,
     \Universe\Providers\ExceptionServerProvider::class,

@@ -13,8 +13,14 @@ $app = require __DIR__.'/bootstrap/app.php';
 
 $console = new \Symfony\Component\Console\Application('Universe','1.0');
 
-$console->add(new \Universe\Console\ServerStartCommand($app));
-$console->add(new \Universe\Console\ServerStopCommand());
-$console->add(new \Universe\Console\ServerReloadCommand());
+// httpServer
+$console->add(new \Universe\Console\Http\ServerStartCommand($app));
+$console->add(new \Universe\Console\Http\ServerStopCommand());
+$console->add(new \Universe\Console\Http\ServerReloadCommand());
+
+//webSocketServer
+$console->add(new \Universe\Console\WebSocket\ServerStartCommand($app));
+$console->add(new \Universe\Console\WebSocket\ServerStopCommand());
+$console->add(new \Universe\Console\WebSocket\ServerReloadCommand());
 
 $console->run();
