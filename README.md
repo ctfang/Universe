@@ -27,15 +27,15 @@ git clone https://github.com/ctfang/Universe.git
 cd Universe
 composer install
 ~~~~
-运行，单独运行php server有帮助命令
+运行，单独运行php server有帮助命令，例如http使用：
 ~~~~php
 // 守护模式，调试下支持代码更改实时生效
-php server start
+php server http:start
 // 非守护模式
-php server start --daemonize=0
+php server http:start --daemonize=0
 // 重启服务
-php server reload
-php server stop
+php server http:reload
+php server http:stop
 ~~~~
 启动时，会输出域名端口基本信息
 ~~~~
